@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root{
+    --color-one: #FE5F55;
+    --color-two: #9448BC;
+    --color-three: #B8D8D8;
+    --color-four: #EEF5DB;
+}
+
+.telaQuiz{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.containerRegras {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 60%;
+    height: 90%;
+}
+
+.info-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    padding: 20px;
+    height: 60px;
+    width: 80%;
+    border-bottom: 1px solid lightgrey;
+    font-size: 2.5rem;
+    color: #9448BC;
+}
+
+.info-list{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoQuiz{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 20%;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 500; 
+}
+
+.buttons-info {
+    margin-right: 10px;
+}
+
+.containerRegras .buttons-info {
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 30px;
+    border-top: 1px solid lightgrey;
+}
+
+.containerRegras .buttons-info button {
+    margin: 0 5px;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    outline: none;
+    /*após a aplicação do JS se formou uma linha em volta do botão, comando para remover a mesma*/
+    transition: all 0.3s ease;
+    border: none;
+    color: #fff;
+}
+
+.link-buttons {
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+}
+
+.link-buttons button.quit {
+    color: #9448BC;
+    
+}
+
+.link-buttons button.quit:hover {
+    color: #9448BC;
+    background-color: transparent;
+}

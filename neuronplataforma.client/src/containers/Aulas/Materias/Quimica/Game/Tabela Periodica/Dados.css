@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+
+:root {
+  --Title-fontWeight: 700;
+  --p-fontWeight: 600;
+  --h3-fontWeight: 400;
+  --Title-fontSize: 2rem;
+  --fontSize--p: 2.5rem;
+  --fontSize--h3: 0.500rem;
+
+  --color-one: #FE5F55;
+  --color-two: #9448BC;
+  --color-three: #B8D8D8;
+  --color-four: #EEF5DB;
+  --color-five:
+}
+
+.telaDados{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 90vh;
+}
+
+
+.timer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: max-content;
+  background-color: #EEF5DB;
+  border: 1px solid #f9f9f9;
+  border-radius: 20px;
+}
+
+.element-input-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+  margin-top: 10px;
+  font-family: 'Chakra Petch', sans-serif;
+  width: 50%;
+  height: 60%;
+  border: 2px groove var(--color-two);
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.symbol{
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilo para o círculo do elemento */
+.element-symbol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  background-color: var(--color-two);
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centraliza os itens dentro da seção de input */
+  margin-left: 20px;
+}
+
+.input-section,
+input {
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.input {
+  border-radius: 10px;
+  border: 5px solid #9448BC;
+}
+
+.input-section > form > button {
+  background-color: var(--color-two);
+  border-color: var(--color-two);
+  border-style: groove;
+  border-radius: 10px;
+  color: #EEF5DB;
+  font-size: 15px;
+  font-weight: 600;
+  height: 100%;
+}
+
+/* Centralização dos componentes de feedback */
+.feedback {
+  margin-top: 50px;
+  text-align: center;
+}
+
+
+.input-section > form > button:disabled {
+  color: var(--color-four);
+  background-color: #9348bccd;
+  border-color: #9348bcd9;
+  cursor: no-drop;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}

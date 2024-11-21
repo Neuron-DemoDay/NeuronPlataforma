@@ -1,0 +1,139 @@
+.conteudo {
+    display: flex; /* Usando flexbox para alinhar o conteúdo */
+    height: 100vh; /* Altura total da viewport */
+    overflow: hidden; /* Oculta qualquer conteúdo que ultrapasse a altura do contêiner */
+}
+
+.blue-background {
+    background: linear-gradient(270deg, #053778 -15.87%, #0F6DE7 106.86%); /* Gradiente azul */
+    width: 45%; /* 45% da largura para o fundo azul */
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Usando flexbox para o conteúdo interno */
+    flex-direction: column; /* Direção das colunas */
+    justify-content: flex-end; /* Alinha o conteúdo ao fundo */
+    position: relative;
+}
+
+.logo {
+    position: absolute; /* Posiciona a logo em relação ao contêiner pai */
+    top: 35px; /* Distância do topo */
+    left: 82%; /* Posição à esquerda do contêiner */
+    width: 12vh; /* Largura da logo */
+    z-index: 2; /* Coloca a logo acima do fundo azul */
+}
+
+.junin {
+    position: absolute; /* Posiciona a imagem do Junin em relação ao contêiner pai */
+    bottom: -20px; /* Alinha à parte inferior do contêiner */
+    left: 25%; /* Posição à esquerda do contêiner */
+    transform: translateX(-50%); /* Centraliza horizontalmente a imagem */
+    width: 70vh; /* Largura da imagem do Junin */
+    z-index: 3; /* Coloca o Junin acima de todos os outros elementos */
+}
+
+.forms { /* A classe .forms é definida novamente aqui, mas com o mesmo conteúdo */
+    width: 55%; /* 55% da largura para os formulários */
+    padding: 20px; /* Espaçamento interno */
+    display: flex; /* Usando flexbox para alinhar o conteúdo */
+    flex-direction: column; /* Direção das colunas */
+    justify-content: center; /* Alinha o conteúdo verticalmente ao centro */
+    align-items: center; /* Alinha o conteúdo horizontalmente ao centro */
+}
+
+.titulo {
+    text-align: center; /* Centraliza o texto do título */
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+}
+
+.titulo h1 {
+    font-size: 2.5rem; /* Tamanho da fonte do título */
+    font-weight: 600; /* Deixa o texto mais forte */
+    color: #2264A2; /* Cor do texto */
+    text-transform: uppercase; /* Transforma o texto em maiúsculas */
+    letter-spacing: 1px; /* Espaçamento entre letras */
+    margin: 0; /* Remove margens padrão */
+    font-family: Inter; /* Define a fonte do título */
+}
+
+.input-container {
+    display: flex; /* Usando flexbox para o contêiner do input */
+    justify-content: center; /* Centraliza o input no meio do forms */
+    position: relative; /* Para permitir o posicionamento absoluto dos ícones */
+    margin-bottom: 20px; /* Espaçamento abaixo do contêiner do input */
+}
+
+.input-container input {
+    width: 53vh; /* Largura do input */
+    height: 6vh; /* Altura do input */
+    padding: 10px 10px 10px 40px; /* Espaçamento interno (superior, direito, inferior, esquerdo) */
+    border: 2px solid #2264A2; /* Borda do input */
+    border-radius: 40px; /* Bordas arredondadas */
+    background-color: transparent; /* Fundo transparente */
+    font-size: 1.2rem; /* Tamanho da fonte */
+    outline: none; /* Remove o contorno padrão do input */
+    transition: border-color 0.3s, box-shadow 0.2s; /* Transições suaves para a borda e sombra */
+}
+
+.input-container input:focus {
+    border-color: rgb(34, 99, 160); /* Cor da borda ao focar */
+    box-shadow: 0 0 5px rgba(34, 99, 160, 0.5); /* Sombra ao focar */
+}
+
+.input-container input::placeholder {
+    color: #A0A0A0; 
+    font-style: Poppins; /* Estilo da fonte do placeholder */
+    transition: font-size 0.3s ease, transform 1.0s ease; /* Transições suaves para o placeholder */
+}
+
+.input-container input:focus::placeholder {
+    font-size: 1rem; /* Tamanho da fonte do placeholder ao focar */
+}   
+
+.icon {
+    font-size: 1.2rem; /* Tamanho do ícone */
+    position: absolute; /* Permite posicionar o ícone dentro do input */
+    left: 15px; /* Ajuste a posição horizontal do ícone */
+    top: 49%; /* Alinha verticalmente o ícone */
+    transform: translateY(-50%); /* Ajuste vertical para centralização */
+    color: #2264A2; /* Cor do ícone */
+}
+
+.link-container {
+    text-align: right; /* Alinha o texto do link à direita */
+}
+
+.link-container a {
+    color: #2264A2; /* Cor do link */
+    font-size: 1rem; /* Tamanho da fonte do link */
+    text-decoration: none; /* Remove o sublinhado do link */
+    font-family: Jost; /* Fonte do link */
+}
+
+.link-container a:hover {
+    text-decoration: underline; /* Sublinhado ao passar o mouse sobre o link */
+}
+
+.submit-btn {
+    width: 80%;
+    padding: 10px;
+    background-color: #074391; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    border: none; /* Remove a borda padrão do botão */
+    border-radius: 40px; /* Bordas arredondadas do botão */
+    font-weight: 600;
+    font-size: 1.3rem; /* Tamanho da fonte do botão */
+    font-family: Jost; /* Fonte do botão */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transições suaves ao passar o mouse */
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px); /* Levanta o botão */
+    opacity: 0.9; /* Leve diminuição da opacidade */
+}
+
+.button-container {
+    display: flex; /* Usando flexbox para o contêiner do botão */
+    justify-content: center; /* Centraliza o botão horizontalmente */
+    margin-top: 10px; /* Espaçamento superior opcional */
+}

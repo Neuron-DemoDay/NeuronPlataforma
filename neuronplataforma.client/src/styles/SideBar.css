@@ -1,0 +1,134 @@
+/* Importação de fontes */
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100..900&display=swap');
+
+/* Container Principal */
+.container-nav {
+    width: 7.625rem;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border-radius: 0 50px 50px 0;
+    background: linear-gradient(176deg, #B40FE7 32.37%, #71118F 134.53%);
+    z-index: 1000;
+    font-family: "Open Sans", sans-serif;
+    transition: width 0.5s ease;   
+}
+
+.container-nav:hover {
+    width: 18.125rem;
+}
+
+/* Identidade da Navbar */
+.navbar-identidade {
+    display: flex;
+    align-items: center;
+    margin: 30px 0 0 1.25rem;
+}
+
+.navbar-identidade img {
+    width: 5.125rem;
+    height: auto;
+    margin-right: 10px;
+}
+
+.navbar-nome {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    line-height: 1;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 7.81rem;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.container-nav:hover .navbar-identidade .navbar-nome {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Links da Navbar */
+.navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 5.06rem;
+    gap: 6vh;
+    height: 75%;
+    width: 60%;
+}
+
+.navbar-links ul {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.navbar-links li a {
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    font-size: 1.25rem;
+    font-weight: 700;
+    gap: 8px;
+    text-decoration: none;
+    transform: translateX(-9px);
+    transition: all 0.3s ease-in-out;
+    padding: 0 15px;
+}
+
+.navbar-links li a.active {
+    color: #794FF1;
+    width: 50%;
+    height: 8vh;
+    padding: 0 15px;
+    border-radius: 20px;
+    background: rgba(217, 217, 217, 0.90);
+}
+
+.container-nav:hover .navbar-links li a.active {
+    width: 100%;
+    height: 7.5vh;
+}
+
+.navbar-links span {
+    display: none;
+    padding: 0;
+    margin: 0;
+    transition: all 0.3s ease-in-out;
+    
+}
+
+.container-nav:hover .navbar-links span {
+    display: inline;
+}
+
+/* Ícones */
+.icon {
+    font-size: 2rem;
+}
+
+/* Lista e Resets */
+ul, li {
+    list-style: none;
+}
+
+/* Animações */
+.container-nav:hover~.conte {
+    padding-left: 20vh;
+}
+
+.navbar-links a.active::before {
+    content: "";
+    position: absolute;
+    width: 55px;
+    height: 45px;
+    left: -40px;
+    background-color: red;
+    clip-path: path('M11.4061 46.7539C16.4911 54.1139 16.0702 63.9554 10.3754 70.8543L-24.7249 113.376C-25.2378 113.998 -25.6612 114.688 -25.9826 115.427C-30.0436 124.76 -44.0864 120.598 -42.406 110.559L-39.4989 93.1924L-35.9989 20.6923L-35.2939 10.344C-34.5737 -0.22929 -20.1671 -2.76035 -15.8861 6.93427C-15.628 7.51877 -15.3152 8.0776 -14.952 8.60329L11.4061 46.7539Z');
+    transform: translateX(-5px);
+  }
