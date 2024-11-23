@@ -1,6 +1,6 @@
 
 import { FaGamepad } from "react-icons/fa6";
-import imgGames from '../../assets/imgGames.png'
+import imgGames from '/src/assets/imgGames.png'
 import ButtonsGames from "../../components/Buttons/ButtonsGames/ButtonsGames";
 import './Games.css'
 
