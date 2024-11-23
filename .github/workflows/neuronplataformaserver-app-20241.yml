@@ -56,3 +56,7 @@ jobs:
       run: >
         az logout
     - uses: Azure/pipelines@v1
+    - name: Debug Secret
+      run: echo "Segredo carregado com sucesso!"
+      env:
+        MY_SECRET: ${{ secrets.neuronplataformaserver_app_20241_SPN }}
