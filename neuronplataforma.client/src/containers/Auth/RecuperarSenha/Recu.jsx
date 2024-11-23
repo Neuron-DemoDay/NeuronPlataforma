@@ -1,7 +1,7 @@
 import { FaEnvelope} from "react-icons/fa";
 import "./Recu.css";
-import junin from '../../../assets/images/juninRecuSenha.png';
-import logoBranca from '../../../assets/images/logoBranca.png';
+import junin from '../../../assets/imagesAuth/juninRecuSenha.png';
+import logoBranca from '../../../assets/logoBranca.png';
 
 function Recu() {
     return (

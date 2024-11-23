@@ -2,8 +2,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
-import React, { useState } from 'react';
 import './index.css'
+
+import Login from "./containers/Auth/Login/Login";
+import Cadastro from "./containers/Auth/Cadastro/Cadastro";
+import NovaSenha from "./containers/Auth/NovaSenha/NovaSenha";
+import RecuperarSenha from "./containers/Auth/RecuperarSenha/Recu";
+import CodigoSenha from "./containers/Auth/CodigoSenha/Codigo";
 
 import ErrorPage from "./error-page";
 import Dashboard from './containers/Dashboard/Dashboard'
@@ -51,7 +56,7 @@ import QuizRedacao from './containers/Aulas/Materias/Redacao/Games/QuizRedação
 import QuizTranscricao from './components/Jogos/QuizTranscricao';
 
 const router = createBrowserRouter([
-  {
+    {
     path: "/",
     element: <SideBar/>,
     errorElement: <ErrorPage />,
@@ -59,7 +64,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
-      },
+        },
       {
         path: "/cronograma",
         element: <Calendar />,
@@ -186,8 +191,28 @@ const router = createBrowserRouter([
         path: "/QuizRedacao",
         element: <QuizRedacao />,
       },
-    ],
-  },
+        ],
+    },
+    {
+        path: "/login",
+        element: <Login />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/cadastro",
+        element: <Cadastro />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/recuperar-senha",
+        element: <RecuperarSenha />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/nova-senha",
+        element: <NovaSenha />,
+        errorElement: <ErrorPage />,
+    },
 ]);
 
 createRoot(document.getElementById('root')).render(

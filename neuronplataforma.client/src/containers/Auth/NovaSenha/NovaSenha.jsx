@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import './NovaSenha.css';
-import logo from '../../../assets/images/logoBranca.png';
-import juninImage from '../../../assets/images/juninNovaSenha.png';
+import logo from '../../../assets/logoBranca.png';
+import juninImage from '../../../assets/imagesAuth/juninNovaSenha.png';
 
 const NovaSenha = () => {
     const [showPassword, setShowPassword] = useState(false);

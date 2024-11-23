@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ptBR } from 'date-fns/locale';
 import { registerLocale } from 'react-datepicker';
-import junin from '..../assets/imagesAuth/juninCadastro.png';
+import junin from '../../../assets/imagesAuth/juninCadastro.png';
 import './Cadastro.css'
 
 registerLocale('ptBR', ptBR);
@@ -46,11 +46,11 @@ const Cadastro = ({ logoBranca }) => { // logoBranca é recebida como prop
                         <h1>Cadastro</h1>
                     </div>
                     <div className="input-container">
-                        <FaUser className='icon' />
+                        <FaUser className='icon-cadastro' />
                         <input type="text" placeholder='*Digite seu nome completo' />
                     </div>
                     <div className="input-container">
-                        <FaCalendarAlt className='icon' onClick={() => document.getElementById("date-picker").focus()} />
+                        <FaCalendarAlt className='icon-cadastro' onClick={() => document.getElementById("date-picker").focus()} />
                         <input
                             id="date-picker"
                             value={inputValue}
@@ -61,18 +61,18 @@ const Cadastro = ({ logoBranca }) => { // logoBranca é recebida como prop
                         />
                     </div>
                     <div className="input-container">
-                        <FaEnvelope className='icon' />
+                        <FaEnvelope className='icon-cadastro' />
                         <input type="email" placeholder='*Digite seu e-mail' />
                     </div>
                     <div className="input-container">
-                        <FaEnvelope className='icon' />
+                        <FaEnvelope className='icon-cadastro' />
                         <input type="email" placeholder='*Confirme seu e-mail' />
                     </div>
                     <div className="input-container">
                         {showPassword1 ? (
-                            <FaEyeSlash className='icon icon-eye' onClick={() => setShowPassword1(!showPassword1)} />
+                            <FaEyeSlash className='icon-cadastro icon-eye' onClick={() => setShowPassword1(!showPassword1)} />
                         ) : (
-                            <FaEye className='icon icon-eye' onClick={() => setShowPassword1(!showPassword1)} />
+                                <FaEye className='icon-cadastro icon-eye' onClick={() => setShowPassword1(!showPassword1)} />
                         )}
                         <input
                             type={showPassword1 ? 'text' : 'password'}
@@ -81,9 +81,9 @@ const Cadastro = ({ logoBranca }) => { // logoBranca é recebida como prop
                     </div>
                     <div className="input-container">
                         {showPassword2 ? (
-                            <FaEyeSlash className='icon icon-eye' onClick={() => setShowPassword2(!showPassword2)} />
+                            <FaEyeSlash className='icon-cadastro icon-eye' onClick={() => setShowPassword2(!showPassword2)} />
                         ) : (
-                            <FaEye className='icon icon-eye' onClick={() => setShowPassword2(!showPassword2)} />
+                                <FaEye className='icon-cadastro icon-eye' onClick={() => setShowPassword2(!showPassword2)} />
                         )}
                         <input
                             type={showPassword2 ? 'text' : 'password'}

@@ -2,6 +2,7 @@
     display: flex;
     height: 100vh;
     overflow: hidden;
+    
 }
 
 .login-purple-background {
@@ -11,6 +12,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-items: center;
     align-items: center;
     padding-bottom: 20px;
 }
@@ -51,11 +53,11 @@
 
 .login-form-container {
     background-color: #EEF5DB;
-    width: 55%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza os itens horizontalmente */
-    justify-content: center; /* Centraliza os itens verticalmente */
+    align-items: center;
+    justify-content: center;
     padding: 20px;
 }
 
@@ -78,10 +80,13 @@
 }
 
 .login-input-container {
-    position: relative; /* Para posicionar o ícone em relação ao input */
-    width: 80%; /* Certifique-se de que ocupa 100% do contêiner */
-    max-width: 400px; /* Limite a largura máxima para centralização */
-    margin-bottom: 25px; /* Espaço entre os inputs */
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+
+.login-input{
+    color: black;
 }
 
 .login-input::placeholder {
@@ -109,7 +114,6 @@
 
 .login-link-container {
     text-align: right;
-    width: 50%;
     margin-bottom: 10px;
 }
 

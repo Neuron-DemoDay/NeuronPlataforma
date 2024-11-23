@@ -1,12 +1,27 @@
 import React from 'react';
 import './Login.css';
-import logoBranca from '..../assets/logoBranca.png';
-import juninCadastro from '..../assets/imagesAuth/juninCadastro.png';
+import logoBranca from '../../../assets/logoBranca.png';
+import juninCadastro from '../../../assets/imagesAuth/juninLogin.png';
 import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 function Login() {
     const [showPassword, setShowPassword] = React.useState(false);
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
+
+    const handleSucces = (credentialResponse) => {
+        console.log(credentialResponse.credential)
+        //envia o token para o back-end
+        fetch("http://localhost:5000/api/auth/google", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: credentialResponse.credential }),
+        })
+            .then((response) => response.json())
+            .then((data) => console.log("Login bem sucedido", data))
+            .then((error) => console.error("Erro no login", error))
+    }
+
 
     return (
         <div className="login-container">
@@ -20,6 +35,14 @@ function Login() {
                     <h1>Bem-vindo ao Neuron!</h1>
                     <p>Login</p>
                 </div>
+
+                <GoogleOAuthProvider clientId="">
+                    <GoogleLogin
+                        onSucces={handleSucces}
+                        onError={() => console.log("Erro ao autenticar")}
+                    />
+                </GoogleOAuthProvider>
+
                 <div className="login-input-container">
                     <FaEnvelope className='login-icon' />
                     <input

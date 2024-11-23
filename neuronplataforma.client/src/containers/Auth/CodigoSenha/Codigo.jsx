@@ -1,7 +1,7 @@
 import { FaKey } from "react-icons/fa";
 import "./Codigo.css";
-import junin from '../../../assets/images/juninRecuSenha.png';
-import logoBranca from '../../../assets/images/logoBranca.png';
+import junin from '../../../assets/imagesAuth/juninRecuSenha.png';
+import logoBranca from '../../../assets/logoBranca.png';
 
 function Codigo() {
     return (

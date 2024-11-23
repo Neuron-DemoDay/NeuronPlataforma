@@ -87,9 +87,9 @@
 
 .input-container input:focus::placeholder {
     font-size: 1rem; /* Tamanho da fonte do placeholder ao focar */
-}   
+}
 
-.icon {
+.icon-cadastro {
     font-size: 1.2rem; /* Tamanho do ícone */
     position: absolute; /* Permite posicionar o ícone dentro do input */
     left: 15px; /* Ajuste a posição horizontal do ícone */
