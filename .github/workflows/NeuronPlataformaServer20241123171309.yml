@@ -63,7 +63,7 @@ jobs:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     - name: Import API into Azure API Management
-      run: az apim api import --path "${{ env.AZURE_APIM_RESOURCE_PATH }}" --resource-group "${{ env.AZURE_APIM_RESOURCEGROUP }}" --service-name "${{ env.AZURE_APIM_SERVICENAME }}" --api-id "${{ env.AZURE_APIM_API_ID }}" --service-url "${{ env.AZURE_APIM_APPSERVICEURL }}" --specification-format --subscription-required false
+      run: az apim api import --path "/" --resource-group "neuronplataformaserver-app-20241ResourceGroup" --service-name "NeuronPlataformaServerapi" --api-id "NeuronPlataformaServer" --service-url "https://neuronplataformaserver20241123171309.azurewebsites.net" --specification-format None --subscription-required false
     - name: logout
       run: >
         az logout
