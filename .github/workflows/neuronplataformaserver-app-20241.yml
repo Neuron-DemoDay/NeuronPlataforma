@@ -42,7 +42,7 @@ jobs:
     - name: Azure Login
       uses: azure/login@v2
       with:
-        creds: ${{ secrets.neuronplataformaserver_app_20241_SPN }}
+        creds: neuronplataformaserver_app_20241_SPN
     - name: Deploy to containerapp
       uses: azure/CLI@v2
       with:
