@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuronPlataforma.Server", "NeuronPlataforma.Server\NeuronPlataforma.Server.csproj", "{E44E4288-62C1-431A-8E7D-EB400FB9FECB}"
 EndProject
@@ -18,8 +18,6 @@ Global
 		{E44E4288-62C1-431A-8E7D-EB400FB9FECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E44E4288-62C1-431A-8E7D-EB400FB9FECB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEE316CA-09B5-4C99-B8E7-EC0DD5FB14B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEE316CA-09B5-4C99-B8E7-EC0DD5FB14B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEE316CA-09B5-4C99-B8E7-EC0DD5FB14B7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{CEE316CA-09B5-4C99-B8E7-EC0DD5FB14B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEE316CA-09B5-4C99-B8E7-EC0DD5FB14B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEE316CA-09B5-4C99-B8E7-EC0DD5FB14B7}.Release|Any CPU.Deploy.0 = Release|Any CPU
