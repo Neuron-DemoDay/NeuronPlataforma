@@ -17,18 +17,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+
       - name: Restore
         run: dotnet restore ${{ env.WORKING_DIRECTORY }}
+
       - name: Build
         run: dotnet build ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-restore
+
       - name: Test
         run: dotnet test ${{ env.WORKING_DIRECTORY }} --no-build
+
       - name: Publish
         run: dotnet publish ${{ env.WORKING_DIRECTORY }} --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -44,14 +50,26 @@ jobs:
         with:
           name: webapp
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+      - name: Debug Secret
+        run: |
+          if [ -z "${{ secrets.NeuronPlataformaServerapi_SPN }}" ]; then
+            echo "O segredo 'NeuronPlataformaServerapi_SPN' não foi encontrado ou está vazio."
+            exit 1
+          else
+            echo "O segredo 'NeuronPlataformaServerapi_SPN' foi carregado com sucesso."
+          fi
+
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.NeuronPlataformaServerapi_SPN }}
+          creds: '${{ secrets.NeuronPlataformaServerapi_SPN }}'
+
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
       - name: logout
         run: az logout
