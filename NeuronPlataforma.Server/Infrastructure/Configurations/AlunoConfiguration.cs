@@ -20,6 +20,8 @@ namespace NeuronPlataforma.Server.Infrastructure.Configurations
             .WithMany()
             .HasForeignKey(a => a.IdAvatar);
 
+            builder.Property(a => a.Genero).HasConversion<int>();
+
         }
     }
 }

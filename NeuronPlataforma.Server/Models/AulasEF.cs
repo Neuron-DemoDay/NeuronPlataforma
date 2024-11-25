@@ -3,38 +3,48 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NeuronPlataforma.Server.Models
 {
+    public enum Nivel
+    {
+        Basico,
+        Intermediario,
+        Avancado,
+
+    }
     [Table("Aulas")]
-        public class Aulas
-        {
+    public class Aulas
+    {
         [Key]
+        [Column("id_aula")]
         public int Id { get; set; }
 
-            [MaxLength(50)]
-            public required string TituloAula { get; set; }
+        [MaxLength(50)]
+        [Column("titulo_aula")]
+        public required string TituloAula { get; set; }
 
-            [Column(TypeName = "date")]
-            public required DateTime DataCriacao { get; set; }
+        [Column("data_criacao")]
+        public required DateTime DataCriacao { get; set; }
 
-            public required int Nivel { get; set; }
+        public required Nivel Nivel { get; set; }
 
-            public required int CargaHoraria { get; set; }
+        [Column("carga_horaria")]
+        public required int CargaHoraria { get; set; }
 
-            [MaxLength(50)]
-            public required string Materia { get; set; }
+        [MaxLength(50)]
+        public required string Materia { get; set; }
 
-            [Column(TypeName = "date")]
-            public required DateTime DataTermino { get; set; }
+        [Column("data_termino")]
+        public required DateTime DataTermino { get; set; }
 
-            [MaxLength(260)]
-            public required string Conteudo { get; set; }
+        [MaxLength(260)]
+        public required string Conteudo { get; set; }
 
-            [MaxLength(260)]
+        [MaxLength(260)]
 
-            public required string Descricao { get; set; }
+        public required string Descricao { get; set; }
 
-            [MaxLength(260)]
-            public required string Anotacoes { get; set; }
+        [MaxLength(260)]
+        public required string Anotacoes { get; set; }
 
         public Aulas() { }
-        }
     }
+}

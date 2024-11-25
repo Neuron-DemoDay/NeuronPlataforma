@@ -7,6 +7,7 @@ namespace NeuronPlataforma.Server.Models
     public class ChatBox
     {
         [Key]
+        [Column("id_log")]
         public int Id { get; set; }
 
         [MaxLength(400)]
@@ -15,15 +16,16 @@ namespace NeuronPlataforma.Server.Models
         [MaxLength(400)]
         public required string Resposta { get; set; }
 
-        [Column(TypeName = "date")]
+        [Column("Data_interacao")]
         public required DateTime DataInteracao { get; set; }
 
-        public int IdAluno { get; set; }
+        [Column("id_aluno")]
+        public int? IdAluno { get; set; }
 
         [ForeignKey("IdAluno")]
-        public required Alunos Aluno { get; set; }
+        public Alunos? Aluno { get; set; }
 
-        ChatBox() { }
+        public ChatBox() { }
     }
 }
 

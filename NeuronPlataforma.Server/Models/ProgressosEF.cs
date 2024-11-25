@@ -3,19 +3,27 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NeuronPlataforma.Server.Models
 {
-    [Table("Progressos")]
+
+    [Table("Progresso")]
     public class Progressos
     {
         [Key]
+        [Column("id_progresso")]
         public int Id { get; set; }
-        public int IdAula { get; set; }
-        public required Aulas Aula { get; set; }
+        [Column("id_aula")]
+        public int? IdAula { get; set; }
+        [ForeignKey("IdAula")]
+        public Aulas? Aula { get; set; }
 
-        public int IdAluno { get; set; }
+        [Column("id_aluno")]
+        public int? IdAluno { get; set; }
         [ForeignKey("IdAluno")]
-        public required Alunos Aluno { get; set; }
+        public Alunos? Aluno { get; set; }
 
-        Progressos() { }
+        [Column("status_aula")]
+        public required string StatusProgresso { get; set; }
+
+        public Progressos() { }
     }
 }
 

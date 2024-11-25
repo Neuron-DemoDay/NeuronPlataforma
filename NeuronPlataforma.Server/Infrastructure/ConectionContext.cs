@@ -20,10 +20,14 @@ namespace NeuronPlataforma.Server.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Aulas>()
+        .Property(a => a.Nivel)
+        .HasConversion<string>();
+
         }
     }
 }
 
 
-  
- 
+
+
