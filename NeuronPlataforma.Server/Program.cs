@@ -3,7 +3,7 @@ using NeuronPlataforma.Server.Infrastructure;
 using NeuronPlataforma.Server.Models;
 using Microsoft.OpenApi.Models;
 
-//CONFIGURANDO CONEXÃO COM O BANCO DE DADOS
+//CONFIGURANDO CONEXï¿½O COM O BANCO DE DADOS
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<NeuronDb>(options =>
@@ -25,7 +25,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Usar o middleware de autenticação e autorização
+// Usar o middleware de autenticaï¿½ï¿½o e autorizaï¿½ï¿½o
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseDefaultFiles();
@@ -48,182 +48,8 @@ app.MapControllers();
 app.UseHttpsRedirection();
 
 
-// ROTAS PARA ALUNOS
 
-//MAPGET
-app.MapGet("/Alunos", async (NeuronDb db) => await db.AlunosSet.ToListAsync())
-    .WithTags("Alunos");
-
-//MAPPOST
-app.MapPost("/AddAlunos", async (NeuronDb db, Alunos alunos) =>
-{
-    await db.AlunosSet.AddAsync(alunos);
-    await db.SaveChangesAsync();
-    return Results.Created($"/Alunos/{alunos.Id}", alunos);
-}).WithTags("Alunos");
-
-//MapPut
-app.MapPut("/UpdateAlunos/{id}", async (NeuronDb db, Alunos updateAlunos, int id) =>
-
-{
-    var alunos = await db.AlunosSet.FindAsync(id);
-    if (alunos is null)
-        return Results.NotFound();
-    alunos.Nome = updateAlunos.Nome;
-    alunos.DataNascimento = updateAlunos.DataNascimento;
-    alunos.Notas = updateAlunos.Notas;
-    alunos.Telefone = updateAlunos.Telefone;
-    alunos.Email = updateAlunos.Email;
-    alunos.Pontuacao = updateAlunos.Pontuacao;
-
-    await db.SaveChangesAsync();
-    return Results.Ok(alunos);
-})
-    .WithTags("Alunos");
-//MAPGET BY ID
-app.MapGet("/Alunos/{Id}", async (NeuronDb db, int id) =>
-{
-    var aluno = await db.AlunosSet.FindAsync(id);
-    if (aluno is null)
-    {
-        return Results.NotFound();
-    }
-    return Results.Ok(aluno);
-}).WithTags("Alunos");
-
-//MAPDELETE
-app.MapDelete("/DeleteAlunos{id}", async (NeuronDb db, int id) =>
-{
-    var aluno = await db.AlunosSet.FindAsync(id);
-    if (aluno is null)
-    {
-        return Results.NotFound();
-    }
-    db.AlunosSet.Remove(aluno);
-    await db.SaveChangesAsync();
-
-    return Results.Ok();
-}
-).WithTags("Alunos");
-
-
-//ROTAS PARA AULAS
-
-//MapGet
-app.MapGet("/Aulas", async (NeuronDb db) => await db.AulasSet.ToListAsync())
-    .WithTags("Aulas");
-
-//MapGet By Id
-app.MapGet("/Aulas/{id}", async (NeuronDb db, int id) =>
-{
-    var aula = await db.AulasSet.FindAsync(id);
-    if (aula is null)
-    {
-        return Results.NotFound();
-    }
-    return Results.Ok(aula);
-})
-    .WithTags("Aulas");
-
-//MapPost
-app.MapPost("/AddAulas", async (NeuronDb db, Aulas aulas) =>
-{
-    await db.AulasSet.AddAsync(aulas);
-    await db.SaveChangesAsync();
-    return Results.Created($"/Aulas/{aulas.Id}", aulas);
-}).WithTags("Aulas");
-
-//MapPut
-app.MapPut("/UpdateAulas/{id}", async (NeuronDb db, Aulas updateAulas, int id) =>
-
-{
-    var aulas = await db.AulasSet.FindAsync(id);
-    if (aulas is null)
-        return Results.NotFound();
-    aulas.TituloAula = updateAulas.TituloAula;
-    aulas.Nivel = updateAulas.Nivel;
-    aulas.CargaHoraria = updateAulas.CargaHoraria;
-    aulas.Materia = updateAulas.Materia;
-    aulas.Conteudo = updateAulas.Conteudo;
-    aulas.Descricao = updateAulas.Descricao;
-
-    await db.SaveChangesAsync();
-    return Results.Ok(aulas);
-})
-    .WithTags("Aulas");
-
-//MapDelete
-app.MapDelete("/DeleteAlunos/{id}", async (NeuronDb db, int id) =>
-{
-    var aula = await db.AulasSet.FindAsync(id);
-    if (aula is null)
-    {
-        return Results.NotFound();
-    }
-    db.AulasSet.Remove(aula);
-    await db.SaveChangesAsync();
-
-    return Results.Ok(aula);
-})
-    .WithTags("Aulas");
-
-
-//ROTAS PARA Avatares
-
-//MapGet
-app.MapGet("/Avatares", async (NeuronDb db) => await db.AvataresSet.ToListAsync())
-    .WithTags("Avatares");
-
-//MapGet By Id
-app.MapGet("/Avatares/{id}", async (NeuronDb db, int id) =>
-{
-    var aula = await db.AvataresSet.FindAsync(id);
-    if (aula is null)
-    {
-        return Results.NotFound();
-    }
-    return Results.Ok(aula);
-})
-    .WithTags("Avatares");
-
-//MapPost
-app.MapPost("/AddAvatares", async (NeuronDb db, Avatares avatares) =>
-{
-    await db.AvataresSet.AddAsync(avatares);
-    await db.SaveChangesAsync();
-    return Results.Created($"/avatares/{avatares.Id}", avatares);
-}).WithTags("Avatares");
-
-//MapPut
-app.MapPut("/UpdateAvatares/{id}", async (NeuronDb db, Avatares updateAvatares, int id) =>
-
-{
-    var avatares = await db.AvataresSet.FindAsync(id);
-    if (avatares is null)
-        return Results.NotFound();
-    avatares.Imagem = updateAvatares.Imagem;
-    avatares.Nome = updateAvatares.Nome;
-
-    await db.SaveChangesAsync();
-    return Results.Ok(avatares);
-})
-    .WithTags("Avatares");
-
-//MapDelete
-app.MapDelete("/DeleteAvatares/{id}", async (NeuronDb db, int id) =>
-{
-    var avatares = await db.AvataresSet.FindAsync(id);
-    if (avatares is null)
-    {
-        return Results.NotFound();
-    }
-    db.AvataresSet.Remove(avatares);
-    await db.SaveChangesAsync();
-
-    return Results.Ok(avatares);
-})
-    .WithTags("Avatares");
-
+app.MapControllers();
 
 //ROTAS PARA CHATBOX
 
@@ -365,13 +191,13 @@ app.MapPost("/AddPreferencias", async (NeuronDb db, Preferencias preferencias) =
 
     if (alunoExistente == null)
     {
-        return Results.NotFound("Aluno não encontrado.");
+        return Results.NotFound("Aluno nï¿½o encontrado.");
     }
 
-    // Atribui o aluno existente à preferência
+    // Atribui o aluno existente ï¿½ preferï¿½ncia
     preferencias.Aluno = alunoExistente;
 
-    // Adiciona as preferências ao banco de dados
+    // Adiciona as preferï¿½ncias ao banco de dados
     await db.PreferenciasSet.AddAsync(preferencias);
     await db.SaveChangesAsync();
 
@@ -387,7 +213,7 @@ app.MapPut("/UpdatePreferencias/{id}", async (NeuronDb db, Preferencias updatePr
     var preferencias = await db.PreferenciasSet.FindAsync(id);
     if (preferencias is null)
     {
-        Console.WriteLine("Preferências não encontradas.");
+        Console.WriteLine("Preferï¿½ncias nï¿½o encontradas.");
         return Results.NotFound();
     }
 
