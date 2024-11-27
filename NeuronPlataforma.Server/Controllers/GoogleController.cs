@@ -23,19 +23,21 @@ namespace NeuronPlataforma.Server.Controllers
             var response = await _httpClient.GetAsync(googleTokenInfoUrl);
             if (!response.IsSuccessStatusCode)
             {
-                return Unauthorized("Token inválido");
+                return Unauthorized("Token invï¿½lido");
             }
 
             var tokenInfo = JObject.Parse(await response.Content.ReadAsStringAsync());
             var email = tokenInfo["email"]?.ToString();
 
-            //adicionar verficação se email já existe no banco de dados
-            return Ok(new {Message = "Login bem sucediso", Email = email});
+            //adicionar verficaï¿½ï¿½o se email jï¿½ existe no banco de dados
+            return Ok(new { Message = "Login bem sucediso", Email = email });
         }
     }
 
     public class GoogleLoginRequest
     {
-        public string Token { get; set; }
+        public string? Token { get; set; }
+        
     }
+
 }
