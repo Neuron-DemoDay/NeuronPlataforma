@@ -27,6 +27,8 @@ var app = builder.Build();
 // Usar o middleware de autenticação e autorização
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 // Adicionar o middleware do Swagger
 if (app.Environment.IsDevelopment())

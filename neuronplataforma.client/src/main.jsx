@@ -4,6 +4,8 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import './index.css'
 
+import Onboarding from './containers/Onboarding/Onboarding';
+
 import Login from "./containers/Auth/Login/Login";
 import Cadastro from "./containers/Auth/Cadastro/Cadastro";
 import NovaSenha from "./containers/Auth/NovaSenha/NovaSenha";
@@ -213,6 +215,11 @@ const router = createBrowserRouter([
         element: <NovaSenha />,
         errorElement: <ErrorPage />,
     },
+    {
+      path: "/onboarding",
+      element: <Onboarding />,
+      errorElement: <ErrorPage />,
+  },
 ]);
 
 createRoot(document.getElementById('root')).render(
