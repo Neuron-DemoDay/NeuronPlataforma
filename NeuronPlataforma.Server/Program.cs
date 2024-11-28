@@ -2,16 +2,18 @@ using Microsoft.EntityFrameworkCore;
 using NeuronPlataforma.Server.Infrastructure;
 using NeuronPlataforma.Server.Models;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.Google;
 
 //CONFIGURANDO CONEXÃO COM O BANCO DE DADOS
 var builder = WebApplication.CreateBuilder(args);
 
+// Configurar serviços
 builder.Services.AddDbContext<NeuronDb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 
-//CONFIGURANDO O SWAGGER
+// Configurando o Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -23,17 +25,21 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Configurando autenticação com Google
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+.AddGoogle(options =>
+{
+    options.ClientId = builder.Configuration["Google:ClientId"];
+    options.ClientSecret = builder.Configuration["Google:ClientSecret"];
+});
+
 var app = builder.Build();
 
-// Usar o middleware de autenticação e autorização
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
-// Adicionar o middleware do Swagger
- 
-// CONFIGURA A ROTA DO SWAGGER
+// Configurando o pipeline de middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -43,18 +49,22 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseRouting();
-app.MapControllers();
 app.UseHttpsRedirection();
+app.UseDefaultFiles();
+app.UseStaticFiles();
+app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
 
-// ROTAS PARA ALUNOS
+// Mapeando controladores
+app.MapControllers();
 
-//MAPGET
+// Rotas para "Alunos"
 app.MapGet("/Alunos", async (NeuronDb db) => await db.AlunosSet.ToListAsync())
     .WithTags("Alunos");
 
-//MAPPOST
+
 app.MapPost("/AddAlunos", async (NeuronDb db, Alunos alunos) =>
 {
     await db.AlunosSet.AddAsync(alunos);
