@@ -15,8 +15,7 @@ namespace NeuronPlataforma.Server.Models
 
         [Column("Pontuacao_Recompensa")]
         public int PontuacaoRecompensa { get; set; }
-
-        [Column(TypeName = "date")]
+        [Column("Data_criacao")]
         public required DateTime DataCriacao { get; set; }
 
         [Column("quantidade_acertos")]
