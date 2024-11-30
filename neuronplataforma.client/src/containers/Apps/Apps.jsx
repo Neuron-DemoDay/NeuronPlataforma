@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './Apps.css';
-import spotifyVerde from "../../assets/spotify-logo-verde.png";
-import spotifyBranca from "../../assets/spotify-logo.png";
-import notion from "../../assets/notion-logo.png"
-import agenda from "../../assets/google-agenda-logo.png"
-// import paginaSpotify from "../../assets/pagina-spotify"
+//import spotifyVerde from "../../assets/spotify-logo-verde.png";
+//import spotifyBranca from "../../assets/spotify-logo.png";
+//import notion from "../../assets/notion-logo.png"
+//import agenda from "../../assets/google-agenda-logo.png"
+//// import paginaSpotify from "../../assets/pagina-spotify"
 
 // Componente Modal
 function Modal({ title, content, onClose, downloadLink, modalImage, className }) {
