@@ -2,9 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using NeuronPlataforma.Server.Infrastructure;
 using NeuronPlataforma.Server.Models;
 using Microsoft.OpenApi.Models;
+using NeuronPlataforma.Server.Infrastructure.Configurations.ConfigurationGemini;
 
 //CONFIGURANDO CONEX�O COM O BANCO DE DADOS
 var builder = WebApplication.CreateBuilder(args);
+
+StartGemini.start();
 
 builder.Services.AddDbContext<NeuronDb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
