@@ -1,0 +1,90 @@
+:root {
+    /* Cores */
+    --primary-color: #fe5f55;
+    --secondary-color: #0f6de7;
+    --third-color: #2a1e4e;
+    --background-color: #eef5db;
+    --option-color: #7ec8de;
+    --button-hover-color: #ff8a80;
+  
+    /* Fonts */
+    --font-primary: "Inter", sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    font-family: var(--font-primary);
+  }
+  
+  .onboarding-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 1rem;
+  }
+  
+  .onboarding-container {
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  .onboarding-title {
+    font-size: 1.5rem;
+    color: var(--third-color);
+    margin-bottom: 2rem;
+  }
+  
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .option {
+    background-color: var(--option-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--third-color);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    background-color: var(--button-hover-color);
+  }
+  
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .back-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .back-button:hover {
+    background-color: var(--secondary-color);
+  }
+  

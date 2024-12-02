@@ -12,7 +12,7 @@ function Login() {
     const handleSucces = (credentialResponse) => {
         console.log(credentialResponse.credential)
         //envia o token para o back-end
-        fetch("http://localhost:5000/api/auth/google", {
+        fetch("plataforma.neuron-ia.com/api/auth/google", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ token: credentialResponse.credential }),

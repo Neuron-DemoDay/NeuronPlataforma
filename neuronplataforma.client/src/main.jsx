@@ -1,8 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import './index.css'
+
+import Onboarding from './containers/Onboarding/Onboarding';
 
 import Login from "./containers/Auth/Login/Login";
 import Cadastro from "./containers/Auth/Cadastro/Cadastro";
@@ -16,6 +19,7 @@ import Dashboard from './containers/Dashboard/Dashboard'
 import Calendar from './containers/Cronograma/Calendar'
 import Aulas from './containers/Aulas/Materias'
 import Intercambio from './containers/Intercâmbio/Intercambio'
+import Apps from './containers/Apps/Apps'
 import Materias from './containers/Aulas/Materias'
 import Games from './containers/Games/Games'
 
@@ -84,6 +88,10 @@ const router = createBrowserRouter([
       {
         path: "/Intercambios",
         element: <Intercambio />,
+      },
+      {
+        path: "/Apps",
+        element: <Apps />,
       },
       // QUIMICA
       {
@@ -213,6 +221,11 @@ const router = createBrowserRouter([
         element: <NovaSenha />,
         errorElement: <ErrorPage />,
     },
+    {
+      path: "/onboarding",
+      element: <Onboarding />,
+      errorElement: <ErrorPage />,
+  },
 ]);
 
 createRoot(document.getElementById('root')).render(
