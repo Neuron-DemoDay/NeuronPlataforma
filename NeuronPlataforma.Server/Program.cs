@@ -3,9 +3,13 @@ using NeuronPlataforma.Server.Infrastructure;
 using NeuronPlataforma.Server.Models;
 using Microsoft.OpenApi.Models;
 using NeuronPlataforma.Server.Infrastructure.Configurations.ConfigurationGemini;
+using NeuronPlataforma.Server.Extensions;
 
 //CONFIGURANDO CONEX�O COM O BANCO DE DADOS
 var builder = WebApplication.CreateBuilder(args);
+
+//ADICIONANDO OS SERVICES
+builder.Services.AddApplicationServices();
 
 StartGemini.start();
 
@@ -30,7 +34,6 @@ var app = builder.Build();
 
 // Usar o middleware de autentica��o e autoriza��o
 app.UseAuthentication();
-app.UseAuthorization();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
@@ -47,12 +50,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapFallbackToFile("index.html");
-});
+
+app.MapControllers();
+app.MapFallbackToFile("index.html");
+
 
 app.UseHttpsRedirection();
 

@@ -22,7 +22,7 @@ namespace NeuronPlataforma.Server.Models
         public required string Nome { get; set; }
 
         [MaxLength(60)]
-        public required String Escolaridade { get; set; }
+        public required string Escolaridade { get; set; }
         
         public required DateTime DataNascimento { get; set; }
 
