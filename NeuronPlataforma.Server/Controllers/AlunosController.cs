@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NeuronPlataforma.Server.Models;
 using NeuronPlataforma.Server.Services;
 
@@ -6,6 +8,7 @@ namespace NeuronPlataforma.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AlunosController : ControllerBase
     {
         private readonly IAlunosService _alunosService;

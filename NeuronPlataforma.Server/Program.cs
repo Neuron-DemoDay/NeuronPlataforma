@@ -4,11 +4,58 @@ using NeuronPlataforma.Server.Models;
 using Microsoft.OpenApi.Models;
 using NeuronPlataforma.Server.Infrastructure.Configurations.ConfigurationGemini;
 using NeuronPlataforma.Server.Extensions;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using NeuronPlataforma.Server.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-//CONFIGURANDO CONEX�O COM O BANCO DE DADOS
+// CONFIGURANDO CONEXÃO COM O BANCO DE DADOS
 var builder = WebApplication.CreateBuilder(args);
 
-//ADICIONANDO OS SERVICES
+// DEFININDO O CORS
+builder.Services.AddCors(options =>
+    options.AddPolicy("MinhaPoliticaCORS", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    })
+);
+
+// ADICIONANDO O IDENTITY E O DbContext
+builder.Services.AddDbContext<AuthDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // Conexão para AuthDbContext
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AuthDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = false,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+                )
+        };
+    });
+
+// ADICIONANDO OS MÉTODOS DE AUTENTICAÇÃO
+builder.Services.AddScoped<IAuthenticate, AuthenticateService>();
+builder.Services.AddScoped<AlunosService>();
+
+// ADICIONANDO OS SERVICES
 builder.Services.AddApplicationServices();
 
 StartGemini.start();
@@ -18,7 +65,7 @@ builder.Services.AddDbContext<NeuronDb>(options =>
 
 builder.Services.AddControllers();
 
-//CONFIGURANDO O SWAGGER
+// CONFIGURANDO O SWAGGER
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -32,14 +79,12 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Usar o middleware de autentica��o e autoriza��o
+// Usar o middleware de autenticação e autorização
 app.UseAuthentication();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
 // Adicionar o middleware do Swagger
-
-// CONFIGURA A ROTA DO SWAGGER
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -49,19 +94,13 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseRouting();
 
 app.MapControllers();
 app.MapFallbackToFile("index.html");
 
-
 app.UseHttpsRedirection();
-
-
-
-app.MapControllers();
-
 
 await app.RunAsync();
