@@ -135,6 +135,7 @@ namespace NeuronPlataforma.Server.Services
                 throw new ApplicationException("Ocorreu um erro inesperado ao remover o aluno.", ex);
             }
         }
-    }}
+    }
+}
 
 

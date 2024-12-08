@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 */package.json
 */package-lock.json
+NeuronPlataforma.Server/appsettings.json
