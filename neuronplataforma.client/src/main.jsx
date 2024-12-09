@@ -1,11 +1,12 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import { StrictMode } from 'react'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-
+import ErrorPage from "./error-page";
 import { Sidebar } from './components/Sidebar/Sidebar'
 import { Header } from './components/Header/Header'
 import { Intercambio } from './Pages/Intercâmbio/Intercambio'
@@ -21,7 +22,7 @@ import QuizFisica from './Pages/Materias/Fisica/QuizFisica'
 import QuizGeografia from './Pages/Materias/Geografia/QuizGeografia'
 import QuizHistoria from './Pages/Materias/Historia/QuizHistoria'
 import QuizIngles from './Pages/Materias/Ingles/QuizIngles'
-import QuizMatematica from './Pages/Materias/Matematica/QuizMa'
+import QuizMatematica from './Pages/Materias/Matematica/QuizMatetica'
 import Filosofia from './Pages/Materias/Filosofia/Filosofia'
 import Desembaralhe from './Pages/Materias/Ingles/Desembaralhe'
 import Ingles from './Pages/Materias/Ingles/Ingles'
@@ -33,11 +34,32 @@ import Portugues from './Pages/Materias/Portugues/Portugues'
 import Quimica from './Pages/Materias/Quimica/Quimica'
 import Puzzle from './Pages/Materias/Matematica/Puzzle'
 import TabelaPeriodica from './Pages/Materias/Quimica/TabelaPeriodica'
+import Cadastro from './Pages/Auth/Cadastro/Cadastro'
+import Login from './Pages/Auth/Login/Login'
+import OnboardingProvider  from './containers/Onboarding/onboarding-provider.jsx';
+
+const Layout = ({ children }) => {
+  const { isDarkMode } = useTheme();
+  
+  return (
+    <div className={`app-container ${isDarkMode ? 'dark' : ''}`}>
+      <Sidebar />
+      <main className="main-content bg-background text-foreground">
+        <Header />
+        <div className="content-area"><Outlet /></div>
+      </main>
+    </div>
+  );
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Sidebar />,
+    element: (
+    <Layout>
+      <Dashboard />
+    </Layout>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -134,7 +156,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/quizPortugues",
-        element: <QuizPortugues />,
+       // element: <QuizPortugues />,
       },
       // Química
       {
@@ -143,7 +165,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/quizQuimica",
-        element: <QuizQuimica />,
+      //  element: <QuizQuimica />,
       },
       {
         path: "/tabelaPeriodica",
@@ -160,11 +182,30 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/login",
+    element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/cadastro",
+    element: <Cadastro />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/onboarding",
+    element: <OnboardingProvider />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <StrictMode>
+    <GoogleOAuthProvider clientId="678425612724-8p2olt0mc1gpk8hndcmr73uchdd2iacm.apps.googleusercontent.com">
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </GoogleOAuthProvider>
+  </StrictMode>,
 )

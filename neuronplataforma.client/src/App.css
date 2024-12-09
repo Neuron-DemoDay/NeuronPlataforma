@@ -9,6 +9,14 @@
   box-sizing: border-box;
 }
 
+.background {
+    background-color: var(--background);
+}
+
+.foreground {
+    color: var(--foreground);
+}
+
 body {
   font-family: 'Inter', sans-serif;
   line-height: 1.5;

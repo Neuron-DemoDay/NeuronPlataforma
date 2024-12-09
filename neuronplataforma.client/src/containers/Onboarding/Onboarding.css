@@ -1,0 +1,296 @@
+.onboarding-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.onboarding-content {
+  width: 100%;
+  max-width: 28rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.step-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.step-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #111827;
+}
+
+.progress-container {
+  height: 0.5rem;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #10b981;
+  transition: width 300ms ease-out;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.grid-button {
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 200ms;
+}
+
+.grid-button:hover {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+}
+
+.grid-icon {
+  font-size: 1.5rem;
+}
+
+.grid-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  text-align: center;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.list-button {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 200ms;
+}
+
+.list-button:hover {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+}
+
+.list-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.list-time {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.notification-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notification-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.notification-text {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+.notification-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.notification-message {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+.notification-permission {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.notification-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.notification-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.notification-block {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.notification-allow {
+  background-color: #10b981;
+  color: white;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.social-button {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 200ms;
+}
+
+.facebook {
+  background-color: #1877f2;
+  color: white;
+}
+
+.facebook:hover {
+  background-color: #166fe5;
+}
+
+.google {
+  background-color: #4285f4;
+  color: white;
+}
+
+.google:hover {
+  background-color: #3367d6;
+}
+
+.path-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.path-button {
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transition: all 200ms;
+  text-align: center;
+}
+
+.path-button:hover {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+}
+
+.path-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.path-heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.path-description {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.back-button {
+  padding: 0.5rem 1rem;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #e5e7eb;
+}
+
+.back-button:focus {
+  outline: none;
+  ring: 2px;
+  ring-offset: 2px;
+  ring-color: #60a5fa;
+}
+
+.continue-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #10b981;
+  color: white;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  transition: background-color 200ms;
+}
+
+.continue-button:hover {
+  background-color: #059669;
+}
+
+.continue-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5);
+}
+
+.continue-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

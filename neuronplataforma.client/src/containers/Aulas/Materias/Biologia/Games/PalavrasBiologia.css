@@ -1,0 +1,84 @@
+
+
+.telaPalavras{
+    width: 100%;
+    height: 90vh;
+    font-family: var(--secondary-font);
+    display: flex;
+    justify-content: center;
+}
+
+:root{
+   
+    /* Cores */
+    --primary-color: #FE5F55;  /* Coral vibrante */
+    --secondary-color: #0F6DE7;  /* Azul energetico */
+    --third-color: #2A1E4E;  /* Roxo profundo */
+    --room-color: #EEF5DB;  /* Verde suave pastel */
+    --fifth-color: #B40FE7;  /* Roxo ousado */
+    --sixth-color: #7EC8DE;  /* Azul claro suave */
+}
+
+.containerPalavras{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.blocoCentral{
+    margin-bottom: 5vh;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.palavrasButton{
+    display: flex;
+    justify-content: center;
+}
+
+.palavrasButton,
+.palavrasAnimation{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 8vh;
+}
+
+.palavrasAnimation{
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    background-color: #b50fe72b;
+}
+
+.word{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 3px;
+    color: var(--primary-color);
+}
+
+
+.palavrasButton>button{
+    margin: 10px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid var(--color-two);
+    color: blueviolet;
+    cursor: pointer;
+}
+
+.verifBiologia{
+    border-radius: 5px;
+    background-color: var(--color-two);
+    border: none;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.verifBiologia:hover{
+    scale: 1.1;
+}

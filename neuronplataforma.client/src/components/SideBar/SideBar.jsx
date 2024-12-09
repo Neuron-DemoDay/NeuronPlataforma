@@ -1,5 +1,6 @@
+<<<<<<< HEAD
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, NavLink} from 'react-router-dom'
 import { Home, BarChart2, Globe, ShoppingBag, Settings, BookOpen } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useTheme } from '../../Contexts/ThemeContext'
@@ -44,7 +45,7 @@ export function Sidebar() {
 
       <nav className="sidebar-nav">
         {navItems.map((item) => (
-          <Link 
+          <NavLink
             key={item.path} 
             to={item.path}
             className={`nav-item ${activeItem === item.path ? 'active' : ''}`}
@@ -68,10 +69,94 @@ export function Sidebar() {
                 }}
               />
             )}
-          </Link>
+          </NavLink>
         ))}
       </nav>
     </aside>
   )
 }
 
+=======
+import React, { useState } from 'react';
+import logoBranca from '../../assets/logoBranca.png'
+import '../../styles/SideBar.css'
+import { NavLink } from "react-router-dom";
+import { TbHome } from "react-icons/tb";
+import { MdOutlineViewTimeline } from "react-icons/md";
+import { LiaPlaneDepartureSolid } from "react-icons/lia";
+import { MdOutlineClass } from "react-icons/md";
+import { IoGameControllerOutline } from "react-icons/io5";
+import User from "../User/User";
+import { Outlet } from "react-router-dom";
+import { RiApps2AddLine } from "react-icons/ri";
+import { RiArrowDropRightLine } from "react-icons/ri";
+import SvgIcon from './SvgIcon';
+
+function SideBar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
+
+  return (
+    <>
+      <div className={`sidebar ${isMenuOpen ? 'open' : ''}`}>
+        <User />
+        <div className="container-nav">
+          <nav className="navbar">
+            <div className="navbar-identidade">
+              <img src={logoBranca} alt="Logo" aria-label="Logo da Neuron" />
+              <span className='navbar-nome'>Neuron</span>
+            </div>
+            <ul className="navbar-links">
+              <li>
+                <NavLink to="/">
+                  <i><TbHome className="icon" /> </i>
+                  <span>Home</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/cronograma">
+                  <i><MdOutlineViewTimeline className="icon" /></i>
+                  <span>Cronograma</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/Materias">
+                  <i><MdOutlineClass className="icon" /></i>
+                  <span>Aulas</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/Games">
+                  <i>
+                    <IoGameControllerOutline className='icon' /></i>
+                  <span>Jogos</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/intercambios">
+                  <i><LiaPlaneDepartureSolid className="icon" /></i>
+                  <span>Intercâmbios</span>
+                </NavLink>
+              </li>
+              <li>
+                  <NavLink to="/Apps">
+                      <i><RiApps2AddLine className="icon" /></i>
+                      <span>Apps</span>
+                  </NavLink>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div className="conte">
+          <Outlet />
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default SideBar;
+>>>>>>> 73b51b75993fe8f92fd706fe2b58ffca7a49f05a

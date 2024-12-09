@@ -1,0 +1,127 @@
+.code-pagina-recuperacao {
+    display: flex;
+    height: 100vh;
+}
+
+.code-junin {
+    position: absolute;
+    bottom: 0vh;
+    left: 47vh;
+    width: 50vh;
+    height: auto;
+}
+
+.code-logo {
+    position: absolute;
+    top: 2vh;
+    right: 34vh;
+    width: 12vh;
+    height: auto;
+}
+
+.code-container-esquerda {
+    width: 40%;
+    background: linear-gradient(161deg, #FE5F55 -0.39%, #C24740 50.2%, #66231F 100.79%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px;
+    position: relative;
+}
+
+.code-container-direita {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.code-titulo {
+    color: #E4554C;
+    text-align: center;
+    font-family: Inter;
+    font-size: 5vh;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.code-mensagem {
+    background-color: rgba(213, 79, 71, 0.2);
+    padding: 20px;
+    border-radius: 20px;
+    width: 80vh;
+    height: auto;
+    min-height: 15vh;
+}
+
+.code-mensagem p {
+    color: #60221E;
+    font-size: 1.1rem;
+    font-family: Poppins;
+    margin: 0;
+}
+
+.code-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    align-items: center;
+}
+
+.code-input::placeholder {
+    font-size: 1.2rem;
+    transition: font-size 0.3s ease, color 0.3s ease;
+    color: #A0A0A0;
+}
+
+.code-input:focus::placeholder {
+    font-size: 1rem;
+}
+
+.code-forms input {
+    width: 30vh; /* Largura do input agora ocupa 100% do contêiner */
+    height: 5vh; /* Altura do input */
+    padding: 10px 10px 10px 45px; /* Espaçamento interno (superior, direito, inferior, esquerdo) */
+    border: 2px solid var(--primary-color);
+    border-radius: 40px;
+    background-color: transparent;
+    font-size: 1.2rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.code-forms input:focus {
+    border-color: var(--primary-color); /* Cor da borda ao focar */
+    box-shadow: 0 0 5px rgba(254, 95, 85, 0.5); /* Sombra ao focar */
+}
+
+.code-icon {
+    font-size: 1.3rem;
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 15px;
+    color: var(--primary-color);
+}
+
+.code-button {
+    width: 35%;
+    height: 6vh;
+    border-radius: 40px;
+    background: linear-gradient(90deg, #E2544B 0%, #BB453D 100%);
+    color: #FFF;
+    font-family: Jost;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+    margin-top: 0.5vh;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Animação para mudança de cor e transformação */
+}
+
+.code-button:hover {
+    transform: translateY(-3px); /* Levanta o botão */
+    opacity: 0.9; /* Leve diminuição da opacidade */
+}
