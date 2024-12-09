@@ -34,9 +34,6 @@ import Portugues from './Pages/Materias/Portugues/Portugues'
 import Quimica from './Pages/Materias/Quimica/Quimica'
 import Puzzle from './Pages/Materias/Matematica/Puzzle'
 import TabelaPeriodica from './Pages/Materias/Quimica/TabelaPeriodica'
-import Cadastro from './Pages/Auth/Cadastro/Cadastro'
-import Login from './Pages/Auth/Login/Login'
-import OnboardingProvider  from './containers/Onboarding/onboarding-provider.jsx';
 
 const Layout = ({ children }) => {
   const { isDarkMode } = useTheme();
@@ -181,22 +178,7 @@ const router = createBrowserRouter([
         element: "",
       },
     ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/cadastro",
-    element: <Cadastro />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/onboarding",
-    element: <OnboardingProvider />,
-    errorElement: <ErrorPage />,
-  },
+  }
 ]);
 
 
