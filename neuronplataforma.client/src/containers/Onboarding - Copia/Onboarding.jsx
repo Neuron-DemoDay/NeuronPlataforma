@@ -1,335 +1,191 @@
-'use client'
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Clock, Target, BookOpen, Timer, ArrowRight, ArrowLeft, Video, Brain, Book, Clock4, Sun, Sunset, Moon, HelpCircle, GraduationCap, Lightbulb, Pencil, Headphones, Dumbbell, Newspaper } from 'lucide-react'
 
-import React, { createContext, useContext, useState } from 'react';
-import './onboarding.css'
+const questions = [
+  {
+    id: 'preferredTime',
+    question: 'Você prefere estudar em qual horário?',
+    icon: <Clock className="w-6 h-6" />,
+    options: [
+      { id: 'manha', label: 'Manhã', icon: <Sun className="w-6 h-6" /> },
+      { id: 'tarde', label: 'Tarde', icon: <Sunset className="w-6 h-6" /> },
+      { id: 'noite', label: 'Noite', icon: <Moon className="w-6 h-6" /> },
+      { id: 'sem_preferencia', label: 'Não tenho preferência', icon: <HelpCircle className="w-6 h-6" /> }
+    ]
+  },
+  {
+    id: 'studyGoal',
+    question: 'Qual é o seu objetivo com o estudo?',
+    icon: <Target className="w-6 h-6" />,
+    options: [
+      { id: 'melhorar_notas', label: 'Melhorar notas', icon: <GraduationCap className="w-6 h-6" /> },
+      { id: 'preparacao_provas', label: 'Preparação para provas/exames', icon: <Book className="w-6 h-6" /> },
+      { id: 'desenvolvimento_pessoal', label: 'Desenvolvimento pessoal', icon: <Lightbulb className="w-6 h-6" /> },
+      { id: 'outro', label: 'Outro', icon: <Pencil className="w-6 h-6" /> }
+    ]
+  },
+  {
+    id: 'learningStyle',
+    question: 'Qual o seu estilo de aprendizagem preferido?',
+    icon: <BookOpen className="w-6 h-6" />,
+    options: [
+      { id: 'visual', label: 'Visual (vídeos, gráficos)', icon: <Video className="w-6 h-6" /> },
+      { id: 'auditivo', label: 'Auditivo (podcasts, áudios)', icon: <Headphones className="w-6 h-6" /> },
+      { id: 'pratico', label: 'Prático (exercícios, simulações)', icon: <Dumbbell className="w-6 h-6" /> },
+      { id: 'leituraEscrita', label: 'Leitura/escrita (textos, resumos)', icon: <Newspaper className="w-6 h-6" /> }
+    ]
+  },
+  {
+    id: 'studySessionDuration',
+    question: 'Quanto tempo você gostaria de dedicar por sessão de estudo?',
+    icon: <Timer className="w-6 h-6" />,
+    options: [
+      { id: '15_30_min', label: '15-30 minutos', icon: <Timer className="w-6 h-6" /> },
+      { id: '30_60_min', label: '30-60 minutos', icon: <Timer className="w-6 h-6" /> },
+      { id: '1_2_horas', label: '1-2 horas', icon: <Timer className="w-6 h-6" /> },
+      { id: 'mais_2_horas', label: 'Mais de 2 horas', icon: <Timer className="w-6 h-6" /> }
+    ]
+  },
+  {
+    id: 'studyPreference',
+    question: 'Você prefere revisar conteúdos antes de avançar ou seguir para novos temas?',
+    icon: <ArrowRight className="w-6 h-6" />,
+    options: [
+      { id: 'revisar', label: 'Revisar', icon: <ArrowLeft className="w-6 h-6" /> },
+      { id: 'avancar', label: 'Avançar', icon: <ArrowRight className="w-6 h-6" /> }
+    ]
+  }
+]
 
-// Context
-const OnboardingContext = createContext({
-  step: 1,
-  nextStep: () => {},
-  prevStep: () => {},
-  answers: {},
-  saveAnswer: () => {}
-});
-
-// Provider
-export function OnboardingProvider({ children }) {
-  const [step, setStep] = useState(1)
+function OnboardingForm() {
+  const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState({})
+  const [otherReason, setOtherReason] = useState('')
+  const [isComplete, setIsComplete] = useState(false)
 
-  const nextStep = () => setStep(s => Math.min(s + 1, 6))
-  const prevStep = () => setStep(s => Math.max(s - 1, 1))
-
-  const saveAnswer = (question, answer) => {
-    setAnswers(prev => ({ ...prev, [question]: answer }))
+  const handleAnswer = (questionId, answerId) => {
+    const newAnswers = { ...answers, [questionId]: answerId }
+    setAnswers(newAnswers)
+    if (currentStep < questions.length - 1) {
+      setCurrentStep(prev => prev + 1)
+    } else if (answerId === 'avancar') {
+      setIsComplete(true)
+      console.log('Respostas:', newAnswers)
+    }
   }
 
-  return (
-    <OnboardingContext.Provider value={{ 
-      step, 
-      nextStep, 
-      prevStep, 
-      answers, 
-      saveAnswer 
-    }}>
-      {children}
-    </OnboardingContext.Provider>
-  )
-}
-
-const useOnboarding = () => useContext(OnboardingContext)
-
-// Components
-function ProgressBar() {
-  const { step } = useOnboarding()
-  const progress = (step / 6) * 100
-
-  return (
-    <div className="progress-container">
-      <div 
-        className="progress-bar"
-        style={{ width: `${progress}%` }}
-      />
-    </div>
-  )
-}
-
-function BackButton({ onClick }) {
-  return (
-    <button onClick={onClick} className="back-button">
-      ← Back
-    </button>
-  )
-}
-
-function ContinueButton({ onClick, disabled }) {
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className="continue-button"
-    >
-      Continue
-    </button>
-  )
-}
-
-function SourceStep() {
-  const { nextStep, prevStep, saveAnswer } = useOnboarding()
-  
-  const sources = [
-    { id: 'youtube', label: 'YouTube', icon: '🎥' },
-    { id: 'tv', label: 'TV/streaming', icon: '📺' },
-    { id: 'social', label: 'Social Media', icon: '📱' },
-    { id: 'friend', label: 'Friend/Family', icon: '👥' },
-    { id: 'news', label: 'News/Article', icon: '📰' },
-    { id: 'other', label: 'Other', icon: '✨' }
-  ]
-
-  const handleSelect = (source) => {
-    saveAnswer('source', source)
-    nextStep()
+  const handleReview = () => {
+    setCurrentStep(0)
+    setAnswers({})
+    setOtherReason('')
   }
 
-  return (
-    <div className="step-container">
-      <h1 className="step-title">
-        How did you hear about us?
-      </h1>
-      
-      <div className="grid-container">
-        {sources.map(source => (
-          <button
-            key={source.id}
-            onClick={() => handleSelect(source.id)}
-            className="grid-button"
-          >
-            <span className="grid-icon">{source.icon}</span>
-            <span className="grid-label">{source.label}</span>
-          </button>
-        ))}
-      </div>
-      
-      <div className="button-container">
-        <BackButton onClick={prevStep} />
-      </div>
-    </div>
-  )
-}
-
-function ReasonStep() {
-  const { nextStep, prevStep, saveAnswer } = useOnboarding()
-  
-  const reasons = [
-    { id: 'family', label: 'Family & Friends', icon: '👨‍👩‍👧‍👦' },
-    { id: 'school', label: 'School', icon: '🏫' },
-    { id: 'culture', label: 'Culture', icon: '🌍' },
-    { id: 'job', label: 'Job Opportunities', icon: '💼' },
-    { id: 'brain', label: 'Brain Training', icon: '🧠' },
-    { id: 'travel', label: 'Travel', icon: '✈️' },
-    { id: 'other', label: 'Other', icon: '🔮' }
-  ]
-
-  const handleSelect = (reason) => {
-    saveAnswer('reason', reason)
-    nextStep()
-  }
+  const currentQuestion = questions[currentStep]
 
   return (
-    <div className="step-container">
-      <h1 className="step-title">
-        Why are you learning a language?
-      </h1>
-      
-      <div className="grid-container">
-        {reasons.map(reason => (
-          <button
-            key={reason.id}
-            onClick={() => handleSelect(reason.id)}
-            className="grid-button"
-          >
-            <span className="grid-icon">{reason.icon}</span>
-            <span className="grid-label">{reason.label}</span>
-          </button>
-        ))}
-      </div>
-      
-      <div className="button-container">
-        <BackButton onClick={prevStep} />
-      </div>
-    </div>
-  )
-}
-
-function GoalStep() {
-  const { nextStep, prevStep, saveAnswer } = useOnboarding()
-  
-  const goals = [
-    { id: 'casual', label: 'Casual', time: '5 min / day' },
-    { id: 'regular', label: 'Regular', time: '10 min / day' },
-    { id: 'serious', label: 'Serious', time: '15 min / day' },
-    { id: 'intense', label: 'Intense', time: '20 min / day' }
-  ]
-
-  const handleSelect = (goal) => {
-    saveAnswer('goal', goal)
-    nextStep()
-  }
-
-  return (
-    <div className="step-container">
-      <h1 className="step-title">
-        Great. Now choose a daily goal.
-      </h1>
-      
-      <div className="list-container">
-        {goals.map(goal => (
-          <button
-            key={goal.id}
-            onClick={() => handleSelect(goal.id)}
-            className="list-button"
-          >
-            <span className="list-label">{goal.label}</span>
-            <span className="list-time">{goal.time}</span>
-          </button>
-        ))}
-      </div>
-      
-      <div className="button-container">
-        <BackButton onClick={prevStep} />
-      </div>
-    </div>
-  )
-}
-
-function NotificationStep() {
-  const { nextStep, prevStep, saveAnswer } = useOnboarding()
-  
-  const handleContinue = () => {
-    saveAnswer('notifications', true)
-    nextStep()
-  }
-
-  return (
-    <div className="step-container">
-      <h1 className="step-title">
-        Get a daily reminder to meet your goal
-      </h1>
-      
-      <div className="notification-content">
-        <img src="/placeholder.svg" alt="Notification icon" className="notification-icon" />
-        <p className="notification-text">Just in case you forget!</p>
-      </div>
-      
-      <div className="notification-box">
-        <p className="notification-message">www.yourdomain.com wants to</p>
-        <p className="notification-permission">Show notifications</p>
-        <div className="notification-buttons">
-          <button className="notification-button notification-block">Block</button>
-          <button className="notification-button notification-allow" onClick={handleContinue}>Allow</button>
+    <div className="min-h-screen flex items-center justify-center bg-[#0E1519]">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-4xl p-8"
+      >
+        {/* Progress Bar */}
+        <div className="mb-8">
+          <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
+            <motion.div 
+              className="h-full bg-[#58CC02]"
+              initial={{ width: 0 }}
+              animate={{ width: currentStep === questions.length - 1 ? '100%' : `${(currentStep / questions.length) * 100}%` }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
         </div>
-      </div>
-      
-      <div className="button-container">
-        <BackButton onClick={prevStep} />
-        <ContinueButton onClick={handleContinue} />
-      </div>
+
+        {!isComplete ? (
+          <>
+            <motion.div 
+              key={currentStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="mb-8"
+            >
+              <div className="flex items-center mb-6">
+                {currentQuestion.icon}
+                <h2 className="text-2xl font-bold ml-3 text-white">{currentQuestion.question}</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {currentQuestion.options.map((option) => (
+                  <motion.button
+                    key={option.id}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleAnswer(currentQuestion.id, option.id)}
+                    className="w-full p-4 bg-gray-800/50 hover:bg-gray-700/50 rounded-xl transition-colors duration-200 flex items-center space-x-4 border border-gray-700"
+                  >
+                    <div className="w-10 h-10 flex items-center justify-center bg-gray-700 rounded-lg">
+                      {option.icon}
+                    </div>
+                    <span className="text-lg text-white">{option.label}</span>
+                  </motion.button>
+                ))}
+              </div>
+
+              {currentQuestion.id === 'studyGoal' && answers.studyGoal === 'outro' && (
+                <motion.input
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  type="text"
+                  value={otherReason}
+                  onChange={(e) => setOtherReason(e.target.value)}
+                  placeholder="Descreva seu objetivo"
+                  className="w-full mt-4 p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#58CC02]"
+                />
+              )}
+            </motion.div>
+
+            {currentStep === questions.length - 1 && (
+              <div className="flex space-x-4">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleReview}
+                  className="flex-1 py-3 bg-gray-700 text-white rounded-xl hover:bg-gray-600 transition-colors duration-200 flex items-center justify-center space-x-2"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                  <span>Revisar</span>
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleAnswer(currentQuestion.id, 'avancar')}
+                  className="flex-1 py-3 bg-[#58CC02] text-white rounded-xl hover:bg-[#4CAF00] transition-colors duration-200 flex items-center justify-center space-x-2"
+                >
+                  <span>Avançar</span>
+                  <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </div>
+            )}
+          </>
+        ) : (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-center text-white"
+          >
+            <h2 className="text-2xl font-bold mb-4">Obrigado por completar o onboarding!</h2>
+            <p className="text-gray-400">Suas respostas foram registradas com sucesso.</p>
+          </motion.div>
+        )}
+      </motion.div>
     </div>
   )
 }
 
-function SocialStep() {
-  const { nextStep, prevStep, saveAnswer } = useOnboarding()
-  
-  const handleContinue = (option) => {
-    saveAnswer('social', option)
-    nextStep()
-  }
-
-  return (
-    <div className="step-container">
-      <h1 className="step-title">
-        Want us to help you keep your daily goal?
-      </h1>
-      
-      <div className="social-buttons">
-        <button className="social-button facebook" onClick={() => handleContinue('facebook')}>
-          Continue with Facebook
-        </button>
-        <button className="social-button google" onClick={() => handleContinue('google')}>
-          Continue with Google
-        </button>
-      </div>
-      
-      <div className="button-container">
-        <BackButton onClick={prevStep} />
-        <ContinueButton onClick={() => handleContinue('skip')} />
-      </div>
-    </div>
-  )
-}
-
-function PathStep() {
-  const { nextStep, prevStep, saveAnswer } = useOnboarding()
-  
-  const handleSelect = (path) => {
-    saveAnswer('path', path)
-    nextStep()
-  }
-
-  return (
-    <div className="step-container">
-      <h1 className="step-title">
-        Choose your path
-      </h1>
-      
-      <div className="path-options">
-        <button className="path-button" onClick={() => handleSelect('beginner')}>
-          <img src="/placeholder.svg" alt="Beginner icon" className="path-icon" />
-          <h2 className="path-heading">Learning French for the first time?</h2>
-          <p className="path-description">Start from scratch!</p>
-        </button>
-        
-        <button className="path-button" onClick={() => handleSelect('experienced')}>
-          <img src="/placeholder.svg" alt="Experienced icon" className="path-icon" />
-          <h2 className="path-heading">Already know some French?</h2>
-          <p className="path-description">Check your level here!</p>
-        </button>
-      </div>
-      
-      <div className="button-container">
-        <BackButton onClick={prevStep} />
-      </div>
-    </div>
-  )
-}
-
-function OnboardingContent() {
-  const { step } = useOnboarding()
-  
-  return (
-    <div className="step-container">
-      <ProgressBar />
-      
-      {step === 1 && <SourceStep key="source" />}
-      {step === 2 && <ReasonStep key="reason" />}
-      {step === 3 && <GoalStep key="goal" />}
-      {step === 4 && <NotificationStep key="notification" />}
-      {step === 5 && <SocialStep key="social" />}
-      {step === 6 && <PathStep key="path" />}
-    </div>
-  )
-}
-
-export default function Onboarding() {
-  return (
-    <OnboardingProvider>
-      <div className="onboarding-container">
-        <div className="onboarding-content">
-          <OnboardingContent />
-        </div>
-      </div>
-    </OnboardingProvider>
-  )
-}
+export default OnboardingForm
 
