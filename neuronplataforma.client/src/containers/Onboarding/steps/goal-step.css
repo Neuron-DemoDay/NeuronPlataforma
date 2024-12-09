@@ -1,0 +1,39 @@
+.step-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #111827;
+}
+
+.goal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.goal-button {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 200ms;
+}
+
+.goal-button:hover {
+  border-color: #10b981;
+  background-color: #ecfdf5;
+}
+
+.goal-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.goal-time {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
