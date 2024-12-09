@@ -1,0 +1,35 @@
+.hero-section {
+  background: linear-gradient(135deg, #87CEEB 0%, #5FB6E5 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+}
+
+.journey-step {
+  transition: all 0.3s ease;
+}
+
+.journey-step:hover {
+  transform: translateY(-5px);
+}
+
+.step-icon {
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.journey-step:hover .step-icon {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+

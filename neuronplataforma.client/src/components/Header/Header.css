@@ -1,0 +1,85 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.header .icon-button {
+  z-index: 51;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #B40FE7;
+  transition: transform 0.2s ease, color 0.2s ease;
+  position: relative;
+}
+
+.icon-button:hover {
+  color: #8f0bb7;
+  transform: scale(1.1);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(180, 15, 231, 0.5);
+}
+
+/* .icon-button svg {
+  transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+} */
+
+/* .rotate-180 {
+  transform: rotate(180deg);
+} */
+
+
+.theme-icon {
+  color: #B40FE7;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.icon-button:active .theme-icon {
+  transform: scale(0.8);
+}
+
+@keyframes clickAnimation {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.icon-button:active .theme-icon {
+  animation: clickAnimation 0.3s ease;
+}
+

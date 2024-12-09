@@ -1,0 +1,254 @@
+/* aulas recentes */
+
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.recent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+}
+
+.tema-func-recentes {
+    display: flex;
+    padding-left: 5px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.button:hover{
+    color: #FE5F55;
+    border-color: #FE5F55;
+    scale: 1.05;
+}
+
+/* games */
+
+.game {
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: center;
+}
+
+.gameContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.gameContainer:hover{
+    color: #FE5F55;
+    border-color: #FE5F55;
+    scale: 1.05;
+}
+
+.gamesOption>span {
+    font-size: 3vh;
+    font-weight: 600;
+}
+
+.nameLink {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+}
+
+.name-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status {
+    display: flex;
+    flex-direction: row;
+}
+
+#name {
+    font-size: 14px;
+    color: #333;
+}
+
+/* temas principais */
+
+.containerTema {
+    display: flex;
+    width: 40%;
+    height: 5rem;
+    border-radius: 10px;
+}
+
+.temaLink {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+}
+
+.tema-func {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    gap: 6px;
+    margin-left: 10px;
+}
+
+.func {
+    display: flex;
+    flex-direction: row;
+    row-gap: 10px;
+}
+
+#tema {
+    font-size: 14px;
+    color: #333;
+}
+
+#funcionalidades {
+    font-size: 8px;
+    font-weight: 600;
+    border-radius: 4px;
+    width: max-content;
+    padding: 1.5px;
+    margin-right: 10px;
+}
+
+#funcionalidades2 {
+    font-size: 8px;
+    font-weight: 600;
+    border-radius: 4px;
+    width: max-content;
+    padding: 1.5px;
+    margin-right: 10px;
+}
+
+#nivel {
+    font-size: 8px;
+    font-weight: 600;
+    border-radius: 4px;
+    width: max-content;
+    padding: 1.5px;
+    margin-right: 10px;
+}
+
+
+/* estilização de pagina */
+
+.aulas {
+    width: 100%;
+    height: 100%;
+}
+
+.aulas>h2 {
+    display: flex;
+    width: 100%;
+    font-size: 5vh;
+    font-weight: 700;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.blocos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.inicias {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.conteudoAtual,
+.gamesOption {
+    width: 40%;
+    height: 55dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+
+.conteudoAtual>ul,
+.gamesOption>ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    height: 80%;
+    width: 75%;
+    gap: 20px;
+}
+
+.conteudoAtual>ul>li,
+.gamesOption>ul>li {
+    display: flex;
+    width: 90%;
+    height: 20%;
+}
+
+.conteudoAtual>span {
+    font-size: 3vh;
+    font-weight: 600;
+}
+
+.conteudo-maior {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.titulo-materias {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 90%;
+    height: 60dvh;
+    margin-right: 15px;
+}
+
+.conteudo>span {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.temas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 20px;
+}

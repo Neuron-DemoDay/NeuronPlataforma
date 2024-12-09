@@ -1,0 +1,86 @@
+.telaDados{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+  }
+  
+  
+  .timer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: max-content;
+  }
+  
+  .element-input-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  
+    margin-top: 10px;
+    width: 50%;
+    height: 60%;
+    text-align: center;
+  }
+  
+  .symbol{
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Estilo para o círculo do elemento */
+  .element-symbol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    background-color: var(--color-two);
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  
+  .input-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centraliza os itens dentro da seção de input */
+    margin-left: 20px;
+  }
+  
+  .input-section,
+  input {
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  .input {
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 2px solid #9448BC;
+  }
+
+  .input-section > form > button{
+    padding: 5px 5px 5px 5px;
+    border: 2px solid #9448BC;
+    border-radius: 10px;
+    color: #9448BC;
+  }
+  
+  /* Centralização dos componentes de feedback */
+  .feedback {
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  
+  .input-section > form > button:disabled {
+    color: gray;
+    border-color: gray;
+    cursor: no-drop;
+  }

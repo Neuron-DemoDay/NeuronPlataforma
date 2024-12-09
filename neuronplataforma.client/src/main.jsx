@@ -1,235 +1,170 @@
-import { StrictMode } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom/client'
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
 import './index.css'
 
-import Onboarding from './containers/Onboarding/Onboarding';
-
-import Login from "./containers/Auth/Login/Login";
-import Cadastro from "./containers/Auth/Cadastro/Cadastro";
-import NovaSenha from "./containers/Auth/NovaSenha/NovaSenha";
-import RecuperarSenha from "./containers/Auth/RecuperarSenha/Recu";
-import CodigoSenha from "./containers/Auth/CodigoSenha/Codigo";
-
-import ErrorPage from "./error-page";
-import Dashboard from './containers/Dashboard/Dashboard'
-
-import Calendar from './containers/Cronograma/Calendar'
-import Aulas from './containers/Aulas/Materias'
-import Intercambio from './containers/Intercâmbio/Intercambio'
-import Apps from './containers/Apps/Apps'
-import Materias from './containers/Aulas/Materias'
-import Games from './containers/Games/Games'
-
-import SideBar from './components/SideBar/SideBar'
-
-import Quimica from './containers/Aulas/Materias/Quimica/Quimica'
-import QuimicaQuiz from './containers/Aulas/Materias/Quimica/Game/QuizQuimica/QuimicaQuiz'
-import TabelaPeriodica from './containers/Aulas/Materias/Quimica/Game/Tabela Periodica/TabelaPeriodica';
-
-import Fisica from './containers/Aulas/Materias/Fisica/Fisica'
-import QuizFisica from './containers/Aulas/Materias/Fisica/Games/QuizFisica'
-
-import Biologia from './containers/Aulas/Materias/Biologia/Biologia'
-import QuizBiologia from './containers/Aulas/Materias/Biologia/Games/QuizBiologia'
-import JogoDePalavras from './containers/Aulas/Materias/Biologia/Games/PalavrasBiologia'
-
-import Matematica from './containers/Aulas/Materias/Matematica/Matematica'
-import QuizMatematica from './containers/Aulas/Materias/Matematica/Games/QuizMatematica'
-import Puzzle from './containers/Aulas/Materias/Matematica/Games/PuzzleMatematica'
-
-import Historia from './containers/Aulas/Materias/Historia/Historia'
-import QuizHistoria from './containers/Aulas/Materias/Historia/Games/QuizHistoria'
-
-import Geografia from './containers/Aulas/Materias/Geografia/Geografia'
-import QuizGeografia from './containers/Aulas/Materias/Geografia/Games/QuizGeografia'
-
-import Filosofia from './containers/Aulas/Materias/Filosofia/Filosofia'
-import QuizFilosofia from './containers/Aulas/Materias/Filosofia/Games/QuizFilosofia'
-
-import Portugues from './containers/Aulas/Materias/Portugues/Portugues'
-import QuizPortugues from './containers/Aulas/Materias/Portugues/Games/PortuguesQuiz/QuizPortugues'
-
-import Ingles from './containers/Aulas/Materias/Ingles/Ingles'
-import QuizIngles from './containers/Aulas/Materias/Ingles/Games/QuizIngles'
-
-import Redacao from './containers/Aulas/Materias/Redacao/Redacao'
-import QuizRedacao from './containers/Aulas/Materias/Redacao/Games/QuizRedação'
-import QuizTranscricao from './components/Jogos/QuizTranscricao';
+import { Sidebar } from './components/Sidebar/Sidebar'
+import { Header } from './components/Header/Header'
+import { Intercambio } from './Pages/Intercâmbio/Intercambio'
+import { Dashboard } from './Pages/Dashboard/Dashboard'
+import { Aulas } from './Pages/Aulas/Aulas'
+import { ThemeProvider, useTheme } from './Contexts/ThemeContext'
+import './App.css'
+import Biologia from './Pages/Materias/Biologia/Biologia'
+import QuizBiologia from './Pages/Materias/Biologia/QuizBiologia'
+import CiclosBiologicos from './Pages/Materias/Biologia/CiclosBiologicos'
+import QuizFilosofia from './Pages/Materias/Filosofia/QuizFilosofia'
+import QuizFisica from './Pages/Materias/Fisica/QuizFisica'
+import QuizGeografia from './Pages/Materias/Geografia/QuizGeografia'
+import QuizHistoria from './Pages/Materias/Historia/QuizHistoria'
+import QuizIngles from './Pages/Materias/Ingles/QuizIngles'
+import QuizMatematica from './Pages/Materias/Matematica/QuizMa'
+import Filosofia from './Pages/Materias/Filosofia/Filosofia'
+import Desembaralhe from './Pages/Materias/Ingles/Desembaralhe'
+import Ingles from './Pages/Materias/Ingles/Ingles'
+import Historia from './Pages/Materias/Historia/Historia'
+import Geografia from './Pages/Materias/Geografia/Geografia'
+import Fisica from './Pages/Materias/Fisica/Fisica'
+import Matematica from './Pages/Materias/Matematica/Matematica'
+import Portugues from './Pages/Materias/Portugues/Portugues'
+import Quimica from './Pages/Materias/Quimica/Quimica'
+import Puzzle from './Pages/Materias/Matematica/Puzzle'
+import TabelaPeriodica from './Pages/Materias/Quimica/TabelaPeriodica'
 
 const router = createBrowserRouter([
-    {
+  {
     path: "/",
-    element: <SideBar/>,
+    element: <Sidebar />,
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <Dashboard />,
-        },
-      {
-        path: "/cronograma",
-        element: <Calendar />,
       },
       {
-        path: "/Materias",
-        element: <Materias />,
-      },
-      {
-        path: "/Games",
-        element: <Games />,
-      },
-      {
-        path: "/QuizMateriaAtual",
-        element: <QuizTranscricao />,
-      },
-      {
-        path: "/Intercambios",
+        path: "/intercambio",
         element: <Intercambio />,
       },
       {
-        path: "/Apps",
-        element: <Apps />,
+        path: "/aulas",
+        element: <Aulas />,
       },
-      // QUIMICA
+      // Biologia
       {
-        path: '/Quimica',
-        element: <Quimica />,
-      },
-      {
-        path: "/TabelaPeriodica",
-        element: <TabelaPeriodica />,
-      },
-      {
-        path: "/QuizQuimica",
-        element: <QuimicaQuiz />,
-      },
-      // FISICA
-      {
-        path: "/Fisica",
-        element: <Fisica />,
-      },
-      {
-        path: "/QuizFisica",
-        element: <QuizFisica />,
-      },
-      // BIOLOGIA
-      {
-        path: "/Biologia",
+        path: "/biologia",
         element: <Biologia />,
       },
       {
-        path: "/AcessoAulas/Biologia",
-        element: <Aulas/>
-      },
-      {
-        path: "/QuizBiologia",
+        path: "/quizBiologia",
         element: <QuizBiologia />,
       },
       {
-        path: "/PalavrasBiologia",
-        element: <JogoDePalavras />,
+        path: "/ciclosBiologicos",
+        element: <CiclosBiologicos />,
       },
-      // MATEMATICA
+      // Filosofia
       {
-        path: "/Matematica",
-        element: <Matematica />,
-      },
-      {
-        path: "/QuizMatematica",
-        element: <QuizMatematica />,
-      },
-      {
-        path: "/Puzzle",
-        element: <Puzzle />,
-      },
-      // HISTORIA
-      {
-        path: "//Historia",
-        element: <Historia />,
-      },
-      {
-        path: "/QuizHistoria",
-        element: <QuizHistoria />,
-      },
-      // GEOGRAFIA
-      {
-        path: "/Geografia",
-        element: <Geografia />,
-      },
-      {
-        path: "/QuizGeografia",
-        element: <QuizGeografia />,
-      },
-      // FILOSOFIA
-      {
-        path: "/Filosofia",
+        path: "/filosofia",
         element: <Filosofia />,
       },
       {
-        path: "/QuizFilosofia",
+        path: "/quizFilosofia",
         element: <QuizFilosofia />,
       },
-      // PORTUGUES
+      // Física
       {
-        path: "/Portugues",
-        element: <Portugues />,
+        path: "/fisica",
+        element: <Fisica />,
       },
       {
-        path: "/QuizPortugues",
-        element: <QuizPortugues />,
+        path: "/quizFisica",
+        element: <QuizFisica />,
       },
-      // INGLES
+      // Geografia
       {
-        path: "/Ingles",
+        path: "/geografia",
+        element: <Geografia />,
+      },
+      {
+        path: "/quizGeografia",
+        element: <QuizGeografia />,
+      },
+      // História
+      {
+        path: "/historia",
+        element: <Historia />,
+      },
+      {
+        path: "/quizHistoria",
+        element: <QuizHistoria />,
+      },
+      // Inglês
+      {
+        path: "/ingles",
         element: <Ingles />,
       },
       {
-        path: "/QuizIngles",
+        path: "/quizIngles",
         element: <QuizIngles />,
       },
-      // REDACAO
       {
-        path: "/Redacao",
-        element: <Redacao />,
+        path: "/desembaralhe",
+        element: <Desembaralhe />,
+      },
+      // Matemática
+      {
+        path: "/matematica",
+        element: <Matematica />,
       },
       {
-        path: "/QuizRedacao",
-        element: <QuizRedacao />,
+        path: "/quizMatematica",
+        element: <QuizMatematica />,
       },
-        ],
-    },
-    {
-        path: "/login",
-        element: <Login />,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "/cadastro",
-        element: <Cadastro />,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "/recuperar-senha",
-        element: <RecuperarSenha />,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "/nova-senha",
-        element: <NovaSenha />,
-        errorElement: <ErrorPage />,
-    },
-    {
-      path: "/onboarding",
-      element: <Onboarding />,
-      errorElement: <ErrorPage />,
+      {
+        path: "/puzzle",
+        element: <Puzzle />,
+      },
+      // Português
+      {
+        path: "/portugues",
+        element: <Portugues />,
+      },
+      {
+        path: "/quizPortugues",
+        element: <QuizPortugues />,
+      },
+      // Química
+      {
+        path: "/quimica",
+        element: <Quimica />,
+      },
+      {
+        path: "/quizQuimica",
+        element: <QuizQuimica />,
+      },
+      {
+        path: "/tabelaPeriodica",
+        element: <TabelaPeriodica />,
+      },
+      // Redação
+      {
+        path: "/redacao",
+        element: "",
+      },
+      {
+        path: "/quizRedacao",
+        element: "",
+      },
+    ],
   },
 ]);
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
 )
