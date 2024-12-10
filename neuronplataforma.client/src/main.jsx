@@ -34,6 +34,7 @@ import Portugues from './Pages/Materias/Portugues/Portugues'
 import Quimica from './Pages/Materias/Quimica/Quimica'
 import Puzzle from './Pages/Materias/Matematica/Puzzle'
 import TabelaPeriodica from './Pages/Materias/Quimica/TabelaPeriodica'
+import Onboading from './containers/Onboarding/Onboarding'
 
 const Layout = ({ children }) => {
   const { isDarkMode } = useTheme();
@@ -178,7 +179,12 @@ const router = createBrowserRouter([
         element: "",
       },
     ],
-  }
+    },
+    {
+        path: "/onboarding",
+        element: <Onboading />,
+        errorElement: <ErrorPage />,
+    }
 ]);
 
 

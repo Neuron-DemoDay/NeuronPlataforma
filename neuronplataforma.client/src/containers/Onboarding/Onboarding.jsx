@@ -58,7 +58,7 @@ const questions = [
   }
 ]
 
-function OnboardingForm() {
+function Onboarding() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState({})
   const [otherReason, setOtherReason] = useState('')
@@ -187,5 +187,5 @@ function OnboardingForm() {
   )
 }
 
-export default OnboardingForm
+export default Onboarding
 
