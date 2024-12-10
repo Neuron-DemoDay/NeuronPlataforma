@@ -115,14 +115,18 @@ function Onboarding() {
   const [isComplete, setIsComplete] = useState(false)
 
   const handleAnswer = (questionId, answerId) => {
-    const newAnswers = { ...answers, [questionId]: answerId }
-    setAnswers(newAnswers)
-    if (currentStep < questions.length - 1) {
-      setCurrentStep(prev => prev + 1)
-    } else if (answerId === 'avancar') {
-      setIsComplete(true)
-      console.log('Respostas:', newAnswers)
-    }
+      const newAnswers = { ...answers, [questionId]: answerId };
+      setAnswers(newAnswers);
+
+      if (questionId === 'studyGoal' && answerId === 'outro') {
+          setOtherReason('');
+      }
+
+      if (currentStep < questions.length - 1) {
+          setCurrentStep((prev) => prev + 1);
+      } else {
+          submitAnswers(newAnswers);
+      }
   }
 
   const handleReview = () => {
@@ -130,6 +134,33 @@ function Onboarding() {
     setAnswers({})
     setOtherReason('')
   }
+
+  const submitAnswers = async (newAnswers) => {
+      try {
+          const payload = { ...newAnswers, otherReason };
+          const response = await fetch('https://sua-api.com/gerar-cronograma', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(payload),
+          });
+
+          if (response.ok) {
+              const data = await response.json();
+              console.log('Cronograma gerado:', data);
+              alert('Cronograma gerado com sucesso!');
+          } else {
+              console.error('Erro ao gerar cronograma:', response.statusText);
+              alert('Ocorreu um erro ao gerar o cronograma.');
+          }
+
+          setIsComplete(true);
+      } catch (error) {
+          console.error('Erro ao enviar as respostas:', error);
+          alert('Erro ao se conectar ao servidor.');
+      }
+  };
 
   const currentQuestion = questions[currentStep]
 
@@ -229,7 +260,7 @@ function Onboarding() {
             className="text-center text-white"
           >
             <h2 className="text-2xl font-bold mb-4">Obrigado por completar o onboarding!</h2>
-            <p className="text-gray-400">Suas respostas foram registradas com sucesso.</p>
+                          <p className="text-gray-400">Você está a um passo do seu sucesso.</p>
           </motion.div>
         )}
       </motion.div>
