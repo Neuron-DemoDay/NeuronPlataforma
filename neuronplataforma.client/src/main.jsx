@@ -35,6 +35,7 @@ import Quimica from './Pages/Materias/Quimica/Quimica'
 import Puzzle from './Pages/Materias/Matematica/Puzzle'
 import TabelaPeriodica from './Pages/Materias/Quimica/TabelaPeriodica'
 import Onboading from './containers/Onboarding/Onboarding'
+import Aula from './containers/Aulas/VideoAulas/video-lesson'
 
 const Layout = ({ children }) => {
   const { isDarkMode } = useTheme();
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
+      },
+      {
+        path: "/aula",
+        element: <Aula />,
       },
       {
         path: "/intercambio",
@@ -108,6 +113,7 @@ const router = createBrowserRouter([
         path: "/geografia",
         element: <Geografia />,
       },
+      
       {
         path: "/quizGeografia",
         element: <QuizGeografia />,
@@ -184,7 +190,7 @@ const router = createBrowserRouter([
         path: "/onboarding",
         element: <Onboading />,
         errorElement: <ErrorPage />,
-    }
+    },
 ]);
 
 

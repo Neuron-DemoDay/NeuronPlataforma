@@ -1,8 +1,58 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Clock, Target, BookOpen, Timer, ArrowRight, ArrowLeft, Video, Brain, Book, Clock4, Sun, Sunset, Moon, HelpCircle, GraduationCap, Lightbulb, Pencil, Headphones, Dumbbell, Newspaper } from 'lucide-react'
+import { Clock, Target, BookOpen, Timer, ArrowRight, ArrowLeft, Video, Brain, Book, Clock4, Sun, Sunset, Moon, HelpCircle, GraduationCap, Lightbulb, Pencil, Headphones, Dumbbell, Newspaper, List, Calendar, Star 
+} from 'lucide-react';
 
 const questions = [
+  {
+    id: 'knowledgeLevel',
+    question: 'Qual é o seu nível atual de conhecimento nas matérias que deseja estudar?',
+    icon: <Brain className="w-6 h-6" />,
+    options: [
+      { id: 'iniciante', label: 'Iniciante', icon: <Star className="w-6 h-6" /> },
+      { id: 'intermediario', label: 'Intermediário', icon: <Star className="w-6 h-6" /> },
+      { id: 'avancado', label: 'Avançado', icon: <Star className="w-6 h-6" /> }
+    ]
+  },
+  {
+    id: 'weeklyHours',
+    question: 'Quantas horas por semana você pode dedicar aos estudos?',
+    icon: <Clock4 className="w-6 h-6" />,
+    options: [
+      { id: '1_5_horas', label: '1-5 horas', icon: <Clock className="w-6 h-6" /> },
+      { id: '6_10_horas', label: '6-10 horas', icon: <Clock className="w-6 h-6" /> },
+      { id: '11_15_horas', label: '11-15 horas', icon: <Clock className="w-6 h-6" /> },
+      { id: 'mais_15_horas', label: 'Mais de 15 horas', icon: <Clock className="w-6 h-6" /> }
+    ]
+  },
+  {
+    id: 'studySubjects',
+    question: 'Quais matérias ou áreas você gostaria de estudar?',
+    icon: <BookOpen className="w-6 h-6" />,
+    options: [
+      { id: 'matematica', label: 'Matemática', icon: <Book className="w-6 h-6" /> },
+      { id: 'ciencias', label: 'Ciências', icon: <Book className="w-6 h-6" /> },
+      { id: 'historia', label: 'História', icon: <Book className="w-6 h-6" /> },
+      { id: 'linguagens', label: 'Linguagens', icon: <Book className="w-6 h-6" /> },
+      { id: 'programacao', label: 'Programação', icon: <Book className="w-6 h-6" /> }
+    ],
+    multiple: true
+  },
+  {
+    id: 'preferredDays',
+    question: 'Você prefere estudar mais em quais dias da semana?',
+    icon: <Calendar className="w-6 h-6" />,
+    options: [
+      { id: 'segunda', label: 'Segunda-feira', icon: <Calendar className="w-6 h-6" /> },
+      { id: 'terca', label: 'Terça-feira', icon: <Calendar className="w-6 h-6" /> },
+      { id: 'quarta', label: 'Quarta-feira', icon: <Calendar className="w-6 h-6" /> },
+      { id: 'quinta', label: 'Quinta-feira', icon: <Calendar className="w-6 h-6" /> },
+      { id: 'sexta', label: 'Sexta-feira', icon: <Calendar className="w-6 h-6" /> },
+      { id: 'sabado', label: 'Sábado', icon: <Calendar className="w-6 h-6" /> },
+      { id: 'domingo', label: 'Domingo', icon: <Calendar className="w-6 h-6" /> }
+    ],
+    multiple: true
+  },
   {
     id: 'preferredTime',
     question: 'Você prefere estudar em qual horário?',
@@ -95,7 +145,7 @@ function Onboarding() {
         <div className="mb-8">
           <div className="h-3 bg-gray-700 rounded-full overflow-hidden">
             <motion.div 
-              className="h-full bg-[#58CC02]"
+              className="h-full bg-[#b40fe7]"
               initial={{ width: 0 }}
               animate={{ width: currentStep === questions.length - 1 ? '100%' : `${(currentStep / questions.length) * 100}%` }}
               transition={{ duration: 0.5 }}
@@ -143,7 +193,7 @@ function Onboarding() {
                   value={otherReason}
                   onChange={(e) => setOtherReason(e.target.value)}
                   placeholder="Descreva seu objetivo"
-                  className="w-full mt-4 p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#58CC02]"
+                  className="w-full mt-4 p-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B40FE7]"
                 />
               )}
             </motion.div>
@@ -163,7 +213,7 @@ function Onboarding() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleAnswer(currentQuestion.id, 'avancar')}
-                  className="flex-1 py-3 bg-[#58CC02] text-white rounded-xl hover:bg-[#4CAF00] transition-colors duration-200 flex items-center justify-center space-x-2"
+                  className="flex-1 py-3 bg-[#B40FE7] text-white rounded-xl hover:bg-[#f5f5f5] transition-colors duration-200 flex items-center justify-center space-x-2"
                 >
                   <span>Avançar</span>
                   <ArrowRight className="w-5 h-5" />
