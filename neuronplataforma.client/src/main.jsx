@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "/aula",
+        path: "/aula/:id",
         element: <Aula />,
         },
         {

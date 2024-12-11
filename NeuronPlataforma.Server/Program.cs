@@ -137,5 +137,7 @@ app.MapFallbackToFile("index.html");
 app.UseHttpsRedirection();
 
 // Inicia a aplicação
+
 await app.RunAsync();
+
 

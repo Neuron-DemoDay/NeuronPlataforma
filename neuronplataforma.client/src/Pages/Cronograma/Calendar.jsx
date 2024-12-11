@@ -3,6 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { useNavigate } from 'react-router-dom';
 import "./Calendar.css";
 
 const categoryColors = {
@@ -23,15 +24,16 @@ const Calendar = forwardRef((props, ref) => {
     const [currentView, setCurrentView] = useState("dayGridMonth");
     const [events, setEvents] = useState([]);
     const [filteredEvents, setFilteredEvents] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('/events.json')
-            .then(response => response.json())
-            .then(data => {
+        fetch("/events.json")
+            .then((response) => response.json())
+            .then((data) => {
                 setEvents(data);
                 setFilteredEvents(data);
             })
-            .catch(error => console.error('Error fetching events:', error));
+            .catch((error) => console.error("Error fetching events:", error));
     }, []);
 
     useImperativeHandle(ref, () => ({
@@ -41,18 +43,24 @@ const Calendar = forwardRef((props, ref) => {
     const handleViewChange = (view) => {
         const calendarApi = calendarRef.current.getApi();
         if (calendarApi) {
-            calendarApi.changeView(view);
-            setCurrentView(view);
+            calendarApi.changeView(view)
+            setCurrentView(view)
         }
     };
 
     const handleCategoryClick = (category) => {
         if (category === "Todos") {
-            setFilteredEvents(events);
+            setFilteredEvents(events)
         } else {
-            const filtered = events.filter(event => event.category === category);
-            setFilteredEvents(filtered);
+            const filtered = events.filter((event) => event.category === category);
+            setFilteredEvents(filtered)
         }
+    };
+
+    const handleEventClick = (clickInfo) => {
+        const eventId = clickInfo.event.id
+        const eventTitle = clickInfo.event.title
+        navigate(`/aula/${eventId}`, { state: { title: eventTitle } }) // Redireciona para a página da aula com o ID
     };
 
     return (
@@ -65,7 +73,7 @@ const Calendar = forwardRef((props, ref) => {
                             className="category-item"
                             style={{
                                 color: categoryColors[category].border,
-                                backgroundColor: categoryColors[category].background
+                                backgroundColor: categoryColors[category].background,
                             }}
                             onClick={() => handleCategoryClick(category)}
                         >
@@ -88,6 +96,7 @@ const Calendar = forwardRef((props, ref) => {
                 allDaySlot={false}
                 nowIndicator={true}
                 events={filteredEvents}
+                eventClick={handleEventClick}
                 eventContent={(eventInfo) => {
                     const { category } = eventInfo.event.extendedProps;
                     const { border, background } = categoryColors[category] || categoryColors["Todos"];
@@ -104,10 +113,10 @@ const Calendar = forwardRef((props, ref) => {
                         </div>
                     );
                 }}
+                eventClick={handleEventClick}
             />
         </div>
     );
 });
 
 export default Calendar;
-
