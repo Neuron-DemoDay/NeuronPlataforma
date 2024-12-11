@@ -1,29 +1,17 @@
-import json
+from flask import Flask, request, jsonify
 from datetime import datetime, timedelta
+import json
 
-# Respostas fictícias do onboarding
-user_data = {
-    "name": "Guilherme Campelo",
-    "nivelConhecimento": "Intermediário",
-    "horasSemanais": 10,
-    "materias": ["Matemática", "Português", "Biologia"],
-    "diasDisponíveis": ["Monday", "Wednesday", "Friday"],
-    "horarioPreferencial": "10:00-12:00",
-    "meta": "Melhorar notas",
-    "estiloAprendizagem": "Visual",
-    "duracaoSessao": "1 hour",
-    "dataFinal": "2025-10-28"
-}
+app = Flask(__name__)
 
-# Ler o JSON de matérias de um arquivo externo
+# Carregar as matérias (similar ao seu script atual)
 def carregar_materias(arquivo_json):
     with open(arquivo_json, "r", encoding="utf-8") as file:
         return json.load(file)
 
 materias = carregar_materias("materias.json")
 
-# Função para filtrar tópicos com base no nível de conhecimento do usuário
-def filtrar_conteudos(materias, user_level):
+def filtrar_conteudos(materias, user_level, user_data):
     conteudos_filtrados = []
     for materia in materias:
         if materia["name"] in user_data["materias"]:
@@ -37,16 +25,12 @@ def filtrar_conteudos(materias, user_level):
                         })
     return conteudos_filtrados
 
-# Filtrar conteúdos com base no nível de conhecimento
-conteudos = filtrar_conteudos(materias, user_data["nivelConhecimento"])
-
-# Função para gerar cronograma
 def gerar_cronograma(conteudos, user_data):
     cronograma = []
     start_date = datetime.now()
     dataFinal = datetime.strptime(user_data["dataFinal"], "%Y-%m-%d")
-    duracaoSessao = timedelta(minutes=60)  # Duração padrão de 1 hora
-    sessions_per_week = user_data["horasSemanais"] // len(user_data["diasDisponíveis"])
+    duracaoSessao = timedelta(minutes=60)
+    sessions_per_week = user_data["horasSemanais"] // len(user_data["diasDisponiveis"])
 
     current_date = start_date
     conteudo_index = 0
@@ -54,7 +38,7 @@ def gerar_cronograma(conteudos, user_data):
 
     while current_date <= dataFinal and conteudo_index < len(conteudos):
         day_name = current_date.strftime("%A")
-        if day_name in user_data["diasDisponíveis"]:
+        if day_name in user_data["diasDisponiveis"]:
             start_time = datetime.strptime(user_data["horarioPreferencial"].split("-")[0], "%H:%M")
             for _ in range(sessions_per_week):
                 if conteudo_index >= len(conteudos):
@@ -70,7 +54,7 @@ def gerar_cronograma(conteudos, user_data):
                 
                 start_time = end_time
                 revisao_counter += 1
-                if revisao_counter == 4:  # Após 4 sessões, adiciona revisão
+                if revisao_counter == 4:
                     cronograma.append({
                         "title": "Revisão dos tópicos anteriores",
                         "start": current_date.strftime("%Y-%m-%dT") + start_time.strftime("%H:%M:%S"),
@@ -83,11 +67,12 @@ def gerar_cronograma(conteudos, user_data):
 
     return cronograma
 
-# Gerar cronograma com os conteúdos filtrados
-cronograma = gerar_cronograma(conteudos, user_data)
+@app.route('/gerar-cronograma', methods=['POST'])
+def gerar():
+    user_data = request.json
+    conteudos = filtrar_conteudos(materias, user_data["NivelConhecimento"], user_data)
+    cronograma = gerar_cronograma(conteudos, user_data)
+    return jsonify(cronograma)
 
-# Exportar para JSON
-with open("cronograma.json", "w", encoding="utf-8") as output_file:
-    json.dump(cronograma, output_file, indent=4, ensure_ascii=False)
-
-print("Cronograma gerado e salvo em 'cronograma.json'")
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

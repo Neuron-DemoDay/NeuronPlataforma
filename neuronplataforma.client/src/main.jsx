@@ -71,7 +71,12 @@ const router = createBrowserRouter([
       {
         path: "/aula",
         element: <Aula />,
-      },
+        },
+        {
+            path: "/cronograma",
+            element: <Calendar />,
+            errorElement: <ErrorPage />,
+        },
       {
         path: "/intercambio",
         element: <Intercambio />,

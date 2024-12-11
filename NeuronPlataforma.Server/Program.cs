@@ -14,16 +14,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DEFININDO O CORS
+// Configuração do CORS
 builder.Services.AddCors(options =>
-    options.AddPolicy("MinhaPoliticaCORS", policy =>
+{
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.AllowAnyOrigin()
               .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials();
-    })
-);
+              .AllowAnyHeader();
+    });
+});
 
 // ADICIONANDO O IDENTITY E O DbContext
 builder.Services.AddDbContext<AuthDbContext>(options =>
@@ -107,6 +107,8 @@ builder.Services.AddSwaggerGen(c =>
 StartGemini.start();
 
 var app = builder.Build();
+
+app.UseCors("AllowAll");
 
 // Habilita o roteamento
 app.UseRouting();

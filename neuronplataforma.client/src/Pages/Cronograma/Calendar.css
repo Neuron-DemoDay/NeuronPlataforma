@@ -1,0 +1,114 @@
+.calendar-container {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.categories-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-item {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .category-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+.view-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+    .view-buttons button {
+        padding: 8px 16px;
+        border: none;
+        background-color: #f0f0f0;
+        color: #333;
+        cursor: pointer;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+
+        .view-buttons button:hover {
+            background-color: #e0e0e0;
+        }
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1.5em;
+}
+
+.fc .fc-button-primary {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+}
+
+    .fc .fc-button-primary:not(:disabled):active,
+    .fc .fc-button-primary:not(:disabled).fc-button-active {
+        background-color: #3a7bc8;
+        border-color: #3a7bc8;
+    }
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: rgba(74, 144, 226, 0.1);
+}
+
+.fc .fc-col-header-cell-cushion {
+    padding: 10px 4px;
+}
+
+.fc .fc-daygrid-day-number {
+    padding: 8px;
+    font-weight: bold;
+}
+
+.event-item {
+    padding: 4px 8px;
+    margin: 2px 0;
+    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.event-title {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.event-time {
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .categories-bar,
+    .view-buttons {
+        margin-bottom: 10px;
+    }
+}
