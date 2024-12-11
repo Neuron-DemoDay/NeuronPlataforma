@@ -36,6 +36,9 @@ import Puzzle from './Pages/Materias/Matematica/Puzzle'
 import TabelaPeriodica from './Pages/Materias/Quimica/TabelaPeriodica'
 import Onboading from './containers/Onboarding/Onboarding'
 import Aula from './containers/Aulas/VideoAulas/video-lesson'
+import LoginPage from './Pages/Login/page.jsx';
+import ForgotPasswordPage from './Pages/ForgotPassword/page.jsx'
+import RegisterPage from './Pages/register/page.jsx'
 
 const Layout = ({ children }) => {
   const { isDarkMode } = useTheme();
@@ -184,6 +187,10 @@ const router = createBrowserRouter([
         path: "/quizRedacao",
         element: "",
       },
+      {
+        path: "/Login",
+        element: <LoginPage/>,
+      }
     ],
     },
     {
@@ -191,6 +198,14 @@ const router = createBrowserRouter([
         element: <Onboading />,
         errorElement: <ErrorPage />,
     },
+    {
+      path: "/register",
+      element: <RegisterPage />,
+    },
+    {
+      path: "/ForgotPassword",
+      element: <ForgotPasswordPage/>
+    }
 ]);
 
 
