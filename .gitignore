@@ -365,3 +365,4 @@ FodyWeavers.xsd
 */package-lock.json
 NeuronPlataforma.Server/appsettings.json
 /NeuronPlataforma.Server/appsettings.json
+neuronplataforma.client/src/services/api.jsx
