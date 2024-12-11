@@ -5,7 +5,7 @@ import { Clock, Target, BookOpen, Timer, ArrowRight, ArrowLeft, Video, Brain, Bo
 
 const questions = [
   {
-    id: 'knowledgeLevel',
+    id: 'NivelConhecimento',
     question: 'Qual é o seu nível atual de conhecimento nas matérias que deseja estudar?',
     icon: <Brain className="w-6 h-6" />,
     options: [
@@ -26,7 +26,7 @@ const questions = [
     ]
   },
   {
-    id: 'studySubjects',
+    id: 'Materias',
     question: 'Quais matérias ou áreas você gostaria de estudar?',
     icon: <BookOpen className="w-6 h-6" />,
     options: [
@@ -39,7 +39,7 @@ const questions = [
     multiple: true
   },
   {
-    id: 'preferredDays',
+      id: 'DiasDisponiveis',
     question: 'Você prefere estudar mais em quais dias da semana?',
     icon: <Calendar className="w-6 h-6" />,
     options: [
@@ -54,7 +54,7 @@ const questions = [
     multiple: true
   },
   {
-    id: 'preferredTime',
+      id: 'HorarioPreferencial',
     question: 'Você prefere estudar em qual horário?',
     icon: <Clock className="w-6 h-6" />,
     options: [
@@ -109,58 +109,76 @@ const questions = [
 ]
 
 function Onboarding() {
-  const [currentStep, setCurrentStep] = useState(0)
-  const [answers, setAnswers] = useState({})
-  const [otherReason, setOtherReason] = useState('')
-  const [isComplete, setIsComplete] = useState(false)
+    const [currentStep, setCurrentStep] = useState(0);
+    const [answers, setAnswers] = useState({});
+    const [otherReason, setOtherReason] = useState('');
+    const [isComplete, setIsComplete] = useState(false);
 
-  const handleAnswer = (questionId, answerId) => {
-      const newAnswers = { ...answers, [questionId]: answerId };
-      setAnswers(newAnswers);
+    const handleAnswer = (questionId, answerId) => {
+        const newAnswers = { ...answers, [questionId]: answerId };
+        setAnswers(newAnswers);
 
-      if (questionId === 'studyGoal' && answerId === 'outro') {
-          setOtherReason('');
-      }
+        if (questionId === 'studyGoal' && answerId === 'outro') {
+            setOtherReason('');
+        }
 
-      if (currentStep < questions.length - 1) {
-          setCurrentStep((prev) => prev + 1);
-      } else {
-          submitAnswers(newAnswers);
-      }
-  }
+        if (currentStep < questions.length - 1) {
+            setCurrentStep((prev) => prev + 1);
+        } else {
+            submitAnswers(newAnswers);
+        }
+    };
 
-  const handleReview = () => {
-    setCurrentStep(0)
-    setAnswers({})
-    setOtherReason('')
-  }
+    const handleReview = () => {
+        setCurrentStep(0);
+        setAnswers({});
+        setOtherReason('');
+    };
 
-  const submitAnswers = async (newAnswers) => {
-      try {
-          const payload = { ...newAnswers, otherReason };
-          const response = await fetch('https://sua-api.com/gerar-cronograma', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(payload),
-          });
+    const submitAnswers = async (newAnswers) => {
+        try {
+            const mappedAnswers = {
+                Name: 'Guilherme Campelo',
+                DiasDisponiveis: ['Monday', 'Wednesday', 'Friday'],
+                NivelConhecimento: newAnswers.NivelConhecimento,
+                HorasSemanais: parseInt(newAnswers.weeklyHours.split('_')[0], 10),
+                Materias: Object.keys(newAnswers).includes('Materias') ? newAnswers.Materias : [],
+                HorarioPreferencial: '10:00-12:00',
+                Meta: 'Melhorar notas',
+                EstiloAprendizagem: 'Visual',
+                DuracaoSessao: '1 hour',
+                DataFinal: '2025-10-28',
+            };
 
-          if (response.ok) {
-              const data = await response.json();
-              console.log('Cronograma gerado:', data);
-              alert('Cronograma gerado com sucesso!');
-          } else {
-              console.error('Erro ao gerar cronograma:', response.statusText);
-              alert('Ocorreu um erro ao gerar o cronograma.');
-          }
+            const response = await fetch('http://localhost:5000/api/cronograma/gerar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(mappedAnswers),
+            });
 
-          setIsComplete(true);
-      } catch (error) {
-          console.error('Erro ao enviar as respostas:', error);
-          alert('Erro ao se conectar ao servidor.');
-      }
-  };
+            console.log('Payload enviado:', mappedAnswers);
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Cronograma gerado:', data);
+                window.alert('Cronograma gerado com sucesso!');
+            } else {
+                console.error('Erro ao gerar cronograma:', response.statusText);
+                notifyUser('Ocorreu um erro ao gerar o cronograma.');
+            }
+
+            setIsComplete(true);
+        } catch (error) {
+            console.error('Erro ao enviar as respostas:', error);
+            notifyUser('Erro ao se conectar ao servidor.');
+        }
+    };
+    const notifyUser = (message) => {
+        // Replace this with a library like react-toastify or similar for a better UX
+        window.alert(message);
+    };
 
   const currentQuestion = questions[currentStep]
 

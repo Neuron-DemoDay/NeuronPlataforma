@@ -36,6 +36,7 @@ import Puzzle from './Pages/Materias/Matematica/Puzzle'
 import TabelaPeriodica from './Pages/Materias/Quimica/TabelaPeriodica'
 import Onboading from './containers/Onboarding/Onboarding'
 import Aula from './containers/Aulas/VideoAulas/video-lesson'
+import Calendar from './Pages/Cronograma/Calendar'
 
 const Layout = ({ children }) => {
   const { isDarkMode } = useTheme();
@@ -68,7 +69,12 @@ const router = createBrowserRouter([
       {
         path: "/aula",
         element: <Aula />,
-      },
+        },
+        {
+            path: "/cronograma",
+            element: <Calendar />,
+            errorElement: <ErrorPage />,
+        },
       {
         path: "/intercambio",
         element: <Intercambio />,
