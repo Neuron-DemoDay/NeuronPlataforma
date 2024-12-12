@@ -26,9 +26,6 @@ export function Dashboard() {
       if (storedEmail) {
         // If email exists, use it as the username
         setUserName(storedEmail.split('@')[0]) // Use the part before @ as the name
-      } else {
-        // If neither name nor email is found, redirect to Login page
-        navigate('/Login')
       }
     }
   }, [navigate])
