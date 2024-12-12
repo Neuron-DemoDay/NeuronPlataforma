@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import Card1 from './components/Card1';
 import { FcClock } from "react-icons/fc";
@@ -8,9 +8,18 @@ import { MdOutlinePendingActions } from "react-icons/md";
 import Card2 from './components/Card2';
 import Card3 from './components/Card3';
 import ProximasAtividades from './components/ProximasAtividades';
-import MiniCalendar from './components/Calendar';
+// import MiniCalendar from './components/Calendar';
 
 function Dashboard() {
+  const [userName, setUserName] = useState('Usuário');
+
+  useEffect(() => {
+    const storedName = localStorage.getItem('userName');
+    if (storedName) {
+      setUserName(storedName);
+    }
+  }, []);
+
   const statsData = [
     { titulo: "Horas Estudadas", valor: "5:30", icone: <FcClock /> },
     { titulo: "Tarefas Concluídas", valor: "10", icone: <VscVerifiedFilled /> },
@@ -22,7 +31,7 @@ function Dashboard() {
     <div className="dashboard-grid">
       <div className="header">
         <h1>Dashboard</h1>
-        <p>Olá, Joilson. Bem-vindo ao Neuron Dashboard</p>
+        <p>Olá, {userName}. Bem-vindo ao Neuron Dashboard</p>
       </div>
       <div className="stats">
         {statsData.map((stat, index) => (
@@ -46,3 +55,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+

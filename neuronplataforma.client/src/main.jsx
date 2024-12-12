@@ -1,14 +1,12 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { StrictMode } from 'react'
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 import ErrorPage from "./error-page";
 import { Sidebar } from './components/Sidebar/Sidebar'
-import { Header } from './components/Header/Header'
+import { Header } from './components/Header/Header.jsx'
 import { Intercambio } from './Pages/Intercâmbio/Intercambio'
 import { Dashboard } from './Pages/Dashboard/Dashboard'
 import { Aulas } from './Pages/Aulas/Aulas'
@@ -44,11 +42,10 @@ import Aula from './containers/Aulas/VideoAulas/video-lesson'
 import LoginPage from './Pages/Login/page.jsx';
 import ForgotPasswordPage from './Pages/ForgotPassword/page.jsx'
 import RegisterPage from './Pages/register/page.jsx'
-import Calendar from './Pages/Cronograma/Calendar'
-import Onboarding from './containers/Onboarding/Onboarding'
+
 const Layout = ({ children }) => {
   const { isDarkMode } = useTheme();
-  
+
   return (
     <div className={`app-container ${isDarkMode ? 'dark' : ''}`}>
       <Sidebar />
@@ -60,124 +57,107 @@ const Layout = ({ children }) => {
   );
 };
 
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-    <Layout>
-      <Dashboard />
-    </Layout>
-    ),
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: <ProtectedRoute><Dashboard /></ProtectedRoute>,
       },
       {
         path: "/aula/:id",
-        element: <Aula />,
-        },
-        {
-            path: "/cronograma",
-            element: <Calendar />,
-            errorElement: <ErrorPage />,
-        },
+        element: <ProtectedRoute><Aula /></ProtectedRoute>,
+      },
       {
         path: "/intercambio",
-        element: <Intercambio />,
+        element: <ProtectedRoute><Intercambio /></ProtectedRoute>,
       },
       {
         path: "/aulas",
-        element: <Aulas />,
+        element: <ProtectedRoute><Aulas /></ProtectedRoute>,
       },
       // Biologia
       {
         path: "/biologia",
-        element: <Biologia />,
+        element: <ProtectedRoute><Biologia /></ProtectedRoute>,
       },
       {
         path: "/quizBiologia",
-        element: <QuizBiologia />,
+        element: <ProtectedRoute><QuizBiologia /></ProtectedRoute>,
       },
       {
         path: "/ciclosBiologicos",
-        element: <CiclosBiologicos />,
+        element: <ProtectedRoute><CiclosBiologicos /></ProtectedRoute>,
       },
       // Filosofia
       {
         path: "/filosofia",
-        element: <Filosofia />,
+        element: <ProtectedRoute><Filosofia /></ProtectedRoute>,
       },
       {
         path: "/quizFilosofia",
-        element: <QuizFilosofia />,
+        element: <ProtectedRoute><QuizFilosofia /></ProtectedRoute>,
       },
       // Física
       {
         path: "/fisica",
-        element: <Fisica />,
+        element: <ProtectedRoute><Fisica /></ProtectedRoute>,
       },
       {
         path: "/quizFisica",
         element: <QuizFisica />,
-        },
-        {
-            path: "/gravidade",
-            element: <Gravidade />,
-        },
+      },
       // Geografia
       {
         path: "/geografia",
-        element: <Geografia />,
+        element: <ProtectedRoute><Geografia /></ProtectedRoute>,
       },
-      
       {
         path: "/quizGeografia",
         element: <QuizGeografia />,
-        },
-        {
-            path: "/capitais",
-            element: <Capitais />,
-        },
+      },
       // História
       {
         path: "/historia",
-        element: <Historia />,
+        element: <ProtectedRoute><Historia /></ProtectedRoute>,
       },
       {
         path: "/quizHistoria",
         element: <QuizHistoria />,
-        },
-        {
-            path: "/eras",
-            element: <GameEras />,
-        },
+      },
       // Inglês
       {
         path: "/ingles",
-        element: <Ingles />,
+        element: <ProtectedRoute><Ingles /></ProtectedRoute>,
       },
       {
         path: "/quizIngles",
-        element: <QuizIngles />,
+        element: <ProtectedRoute><QuizIngles /></ProtectedRoute>,
       },
       {
         path: "/desembaralhe",
-        element: <Desembaralhe />,
+        element: <ProtectedRoute><Desembaralhe /></ProtectedRoute>,
       },
       // Matemática
       {
         path: "/matematica",
-        element: <Matematica />,
+        element: <ProtectedRoute><Matematica /></ProtectedRoute>,
       },
       {
         path: "/quizMatematica",
-        element: <QuizMatematica />,
+        element: <ProtectedRoute><QuizMatematica /></ProtectedRoute>,
       },
       {
         path: "/puzzle",
-        element: <Puzzle />,
+        element: <ProtectedRoute><Puzzle /></ProtectedRoute>,
       },
       // Português
       {
@@ -186,12 +166,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/quizPortugues",
-        element: <QuizPortugues />,
-        },
-        {
-            path: "/classesGramaticais",
-            element: <ClassesGramaticais />,
-        },
+       // element: <QuizPortugues />,
+      },
       // Química
       {
         path: "/quimica",
@@ -199,30 +175,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/quizQuimica",
-        element: <QuizQuimica />,
+      //  element: <QuizQuimica />,
       },
       {
         path: "/tabelaPeriodica",
-        element: <TabelaPeriodica />,
+        element: <ProtectedRoute><TabelaPeriodica /></ProtectedRoute>,
       },
-      // Redação
-      {
-        path: "/redacao",
-        element: "",
-      },
-      {
-        path: "/quizRedacao",
-        element: "",
-      },
-      {
-        path: "/Login",
-        element: <LoginPage/>,
-      }
     ],
     },
     {
         path: "/onboarding",
-        element: <Onboarding />,
+        element: <Onboading />,
         errorElement: <ErrorPage />,
     },
     {
@@ -235,13 +198,18 @@ const router = createBrowserRouter([
     }
 ]);
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+const Root = () => (
   <StrictMode>
-    <GoogleOAuthProvider clientId="678425612724-8p2olt0mc1gpk8hndcmr73uchdd2iacm.apps.googleusercontent.com">
+    <ErrorBoundary>
       <ThemeProvider>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </ThemeProvider>
-    </GoogleOAuthProvider>
-  </StrictMode>,
-)
+    </ErrorBoundary>
+  </StrictMode>
+);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Root />);
+

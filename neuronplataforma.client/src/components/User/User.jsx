@@ -1,13 +1,18 @@
-import '../../styles/User.css'
-import { MdNightlightRound } from "react-icons/md";
-import { IoMdNotificationsOutline } from "react-icons/io";
-import { IoIosSettings } from "react-icons/io";
-import { MdExpandMore } from "react-icons/md";
-
-
-
+import React, { useState, useEffect } from 'react'
+import { IoIosSettings, IoMdNotificationsOutline } from 'react-icons/io'
+import { MdExpandMore, MdNightlightRound } from 'react-icons/md'
 
 function User({toggleMenu, isMenuOpen}) {
+    const [userName, setUserName] = useState('Usuário')
+    const [userLevel, setUserLevel] = useState('Nível 1')
+
+    useEffect(() => {
+        const storedName = localStorage.getItem('userName')
+        if (storedName) {
+            setUserName(storedName)
+        }
+    }, [])
+
     return (
         <div className="barraUser">
             <div className="user-func">
@@ -20,11 +25,10 @@ function User({toggleMenu, isMenuOpen}) {
                 <div className="info">
                     <div className="img-user"><img src="" alt="" /></div>
                     <div className="infos-user">
-                        <span id='nome'>Joilson Costa</span>
+                        <span id='nome'>{userName}</span>
                         <span id='level'>Major 26</span>
                     </div>
                     <div className="more-user" onClick={toggleMenu}>
-                        
                         <MdExpandMore />
                     </div>
                 </div>
@@ -37,3 +41,4 @@ function User({toggleMenu, isMenuOpen}) {
 }
 
 export default User;
+

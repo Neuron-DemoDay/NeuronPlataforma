@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from "../../components/Ui/ButtonLogin";
+import { Button } from "../../components/Ui/buttonLogin";
 import { Input } from "../../components/Ui/InputLogin";
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/Ui/CardLogin";
 import { Label } from "../../components/Ui/LoginLabel";
@@ -113,9 +113,11 @@ export default function RegisterPage() {
 
     try {
       const response = await api.post('api/Account/register', dataToSend);
-      localStorage.setItem('userData', JSON.stringify(formData));
+      localStorage.setItem('nome', formData.nome);
+      localStorage.setItem('email', formData.email);
+      localStorage.setItem('senha', formData.senha);
       localStorage.removeItem('registerFormData');
-      navigate('/platform');
+      navigate('/');
     } catch (error) {
       let errorMessage = 'Erro desconhecido ao cadastrar aluno.';
       

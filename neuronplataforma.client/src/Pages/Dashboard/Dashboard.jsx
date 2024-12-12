@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, Zap, Clock, CheckCircle, BarChart2, ListTodo, Play } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/Ui/Card"
 import { Button } from "../../components/Ui/Button"
@@ -12,6 +13,25 @@ const currentWeekProgress = ['active', 'active', 'active', 'active', 'active', '
 
 export function Dashboard() {
   const [currentMonth, setCurrentMonth] = useState(new Date())
+  const [userName, setUserName] = useState('Usuário')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const storedName = localStorage.getItem('nome')
+    if (storedName) {
+      setUserName(storedName)
+    } else {
+      // Check for email as an alternative
+      const storedEmail = localStorage.getItem('email')
+      if (storedEmail) {
+        // If email exists, use it as the username
+        setUserName(storedEmail.split('@')[0]) // Use the part before @ as the name
+      } else {
+        // If neither name nor email is found, redirect to Login page
+        navigate('/Login')
+      }
+    }
+  }, [navigate])
 
   const getDaysInMonth = (date) => {
     const year = date.getFullYear()
@@ -53,14 +73,14 @@ export function Dashboard() {
                     alt="Jailson"
                     className="w-16 h-16 rounded-full object-cover"
                   />
-                  <CardTitle>
-                    <h1 className="dashboard-title text-4xl font-bold">Olá Jailson</h1>
-                    <p className="dashboard-subtitle text-xl">Bem-vindo ao seu painel de aprendizado</p>
-                  </CardTitle>
+                  <div>
+                    <CardTitle className="text-4xl font-bold">Olá {userName.includes('@') ? userName.split('@')[0] : userName}</CardTitle>
+                    <p className="text-xl">Bem-vindo ao seu painel de aprendizado</p>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
-                <h2 className="text-2xl font-semibold mb-4">Progresso Semanal</h2>
+                <h3 className="text-2xl font-semibold mb-4">Progresso Semanal</h3>
                 <div className="flex justify-between">
                   {weekDays.map((day, index) => (
                     <div key={day} className="flex flex-col items-center">
