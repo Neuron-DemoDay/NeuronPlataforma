@@ -6,7 +6,7 @@ import isodate
 
 DetectorFactory.seed = 0
 
-API_KEY = "AIzaSyDfaQUFhxa23cVDZf4jezHmQDfHnnoq6PU"
+API_KEY = "AIzaSyB9DbPeuCqrV0bfGDjcAd3Zgg5KZL_kdQQ"
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 def buscar_videos(query, preferencias):
@@ -34,6 +34,7 @@ def buscar_videos(query, preferencias):
             continue
 
         video = {
+            'id': video_id,
             'titulo': titulo,
             'embed': f"https://www.youtube.com/watch?v={video_id}"
         }

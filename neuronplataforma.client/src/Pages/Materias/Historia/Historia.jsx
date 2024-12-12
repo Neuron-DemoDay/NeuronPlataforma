@@ -38,8 +38,8 @@ export default function Historia() {
                         </li>
                         <li>
                             <JogosDesc
-                                link={'/ciclosBiologicos'}
-                                name={"Ciclos Biológicos"}
+                                link={'/eras'}
+                                name={"Momentos Históricos"}
                                 styleGame={'#FE5F55'}
                             />
                         </li>

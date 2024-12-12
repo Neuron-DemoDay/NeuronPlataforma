@@ -1,0 +1,13 @@
+/* src/styles/timeMachine.css */
+.button-eras{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.text-timeMachine {
+  font-size: 1.5rem;
+  color: #0056b3;
+  font-weight: 800;
+}

@@ -38,8 +38,8 @@ export default function Fisica() {
                         </li>
                         <li>
                             <JogosDesc
-                                link={'/'}
-                                name={"?"}
+                                link={'/gravidade'}
+                                name={"Gravidade"}
                                 styleGame={'#FE5F55'}
                             />
                         </li>

@@ -5,6 +5,15 @@
   color: black;
 }
 
+.transcription-text {
+    white-space: pre-wrap;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    color: var(--text-primary);
+}
+
 .dark .main-content {
   background-color: #111827;
   color: white;

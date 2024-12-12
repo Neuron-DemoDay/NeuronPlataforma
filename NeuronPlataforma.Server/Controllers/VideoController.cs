@@ -11,6 +11,7 @@ namespace NeuronPlataforma.Server.Controllers
     {
         private readonly string filePath = Path.Combine(Directory.GetCurrentDirectory(), "events.json");
 
+        // Rota para buscar o vídeo
         [HttpGet("{idAula}")]
         public IActionResult GetVideoForAula(string idAula)
         {
@@ -26,10 +27,11 @@ namespace NeuronPlataforma.Server.Controllers
 
                 var title = aulaEncontrada.Titulo;
 
+                // Inicia o processo para buscar o vídeo com o título
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = "python",
-                    Arguments = $"controllers/main.py \"{title}\"",
+                    Arguments = $"controllers/main.py \"{title}\"", // Passando o título da aula para buscar o vídeo
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
@@ -50,16 +52,56 @@ namespace NeuronPlataforma.Server.Controllers
                 if (string.IsNullOrWhiteSpace(output))
                     return BadRequest("Nenhum link de vídeo encontrado!");
 
-                try
+                // Tenta converter o output em JSON válido
+                var videoData = JsonSerializer.Deserialize<List<Aula>>(output);
+                if (videoData != null && videoData.Count > 0)
                 {
-                    // Tenta converter o output em JSON válido
-                    var videoData = JsonSerializer.Deserialize<List<Aula>>(output);
+
                     return Ok(videoData);
                 }
-                catch (JsonException)
+                else
                 {
                     return BadRequest("Erro ao converter os dados do Python para JSON.");
                 }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex.Message}");
+            }
+        }
+
+        [HttpGet("transcricao/{idVideo}")]
+        public IActionResult GetVideoTranscricao(string idVideo)
+        {
+            try
+            {
+                // Configura o processo para chamar o script de transcrição
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "python",
+                    Arguments = $"controllers/transcribe.py \"{idVideo}\"", // Passa o ID do vídeo para o script
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                var process = Process.Start(startInfo);
+                process.WaitForExit();
+
+                var output = process.StandardOutput.ReadToEnd().Trim();
+                var error = process.StandardError.ReadToEnd();
+
+                if (!string.IsNullOrWhiteSpace(error))
+                {
+                    return BadRequest($"Erro Python: {error}");
+                }
+
+                if (string.IsNullOrWhiteSpace(output))
+                    return BadRequest("Nenhuma transcrição encontrada!");
+
+                // Retorna a transcrição como JSON
+                return Ok(JsonSerializer.Deserialize<object>(output));
             }
             catch (Exception ex)
             {

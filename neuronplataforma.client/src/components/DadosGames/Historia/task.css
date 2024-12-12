@@ -1,0 +1,17 @@
+/* src/styles/task.css */
+.task {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .task button {
+    padding: 8px;
+    font-size: 1em;
+    margin: 5px;
+  }
+  
+  .attempt {
+    color: red;
+    font-weight: bold;
+  }
+  

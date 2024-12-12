@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
+using System.Diagnostics;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace NeuronPlataforma.Server.Controllers
 {
@@ -8,48 +9,85 @@ namespace NeuronPlataforma.Server.Controllers
     [Route("api/[controller]")]
     public class CronogramaController : ControllerBase
     {
+        private readonly string filePath = Path.Combine(Directory.GetCurrentDirectory(), "materias.json");
+
         [HttpPost("gerar")]
-        public async Task<IActionResult> GerarCronograma([FromBody] OnboardingData data)
+        public IActionResult GerarCronograma([FromBody] UserRequest userRequest)
         {
             try
             {
-                //Requisição para o script Python
-                using (var httpClient = new HttpClient())
+                // Serializa os dados do usuário para JSON e salva temporariamente
+                string userDataJson = JsonSerializer.Serialize(userRequest);
+                string tempFilePath = Path.Combine(Path.GetTempPath(), "user_data.json");
+                System.IO.File.WriteAllText(tempFilePath, userDataJson);
+
+                // Inicia o processo para executar o script Python
+                var startInfo = new ProcessStartInfo
                 {
-                    var jsonContent = JsonConvert.SerializeObject(data);
-                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                    FileName = "python",
+                    Arguments = $"gerador_cronograma.py \"{filePath}\" \"{tempFilePath}\"",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
 
-                    //Url do script Python
-                    var pythonApiUrl = "http://localhost:5000/gerar-cronograma";
+                var process = Process.Start(startInfo);
+                process.WaitForExit();
 
-                    var response = await httpClient.PostAsync(pythonApiUrl, content);
+                var output = process.StandardOutput.ReadToEnd().Trim();
+                var error = process.StandardError.ReadToEnd();
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var result = await response.Content.ReadAsStringAsync();
-                        return Ok(JsonConvert.DeserializeObject(result));
-                    }
-
-                    return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+                if (!string.IsNullOrWhiteSpace(error))
+                {
+                    return BadRequest($"Erro Python: {error}");
                 }
-            }catch (Exception ex)
+
+                if (string.IsNullOrWhiteSpace(output))
+                {
+                    return BadRequest("Nenhum cronograma gerado pelo script Python.");
+                }
+
+                // Retorna o cronograma gerado
+                return Ok(JsonSerializer.Deserialize<object>(output));
+            }
+            catch (Exception ex)
             {
-                return StatusCode(500, $"Erro interno: {ex.Message}");
+                return BadRequest($"Erro: {ex.Message}");
             }
         }
-    }
 
-    public class OnboardingData
-{
-    public string Name { get; set; }
-    public string NivelConhecimento { get; set; }
-    public int HorasSemanais { get; set; }
-    public List<string> Materias { get; set; }
-    public List<string> DiasDisponiveis { get; set; }
-    public string HorarioPreferencial { get; set; }
-    public string Meta { get; set; }
-    public string EstiloAprendizagem { get; set; }
-    public string DuracaoSessao { get; set; }
-    public string DataFinal { get; set; }
-}
+        public class UserRequest
+        {
+            [JsonPropertyName("name")]
+            public string Name { get; set; }
+
+            [JsonPropertyName("nivelConhecimento")]
+            public string NivelConhecimento { get; set; }
+
+            [JsonPropertyName("horasSemanais")]
+            public int HorasSemanais { get; set; }
+
+            [JsonPropertyName("materias")]
+            public List<string> Materias { get; set; }
+
+            [JsonPropertyName("diasDisponíveis")]
+            public List<string> DiasDisponiveis { get; set; }
+
+            [JsonPropertyName("horarioPreferencial")]
+            public string HorarioPreferencial { get; set; }
+
+            [JsonPropertyName("meta")]
+            public string Meta { get; set; }
+
+            [JsonPropertyName("estiloAprendizagem")]
+            public string EstiloAprendizagem { get; set; }
+
+            [JsonPropertyName("duracaoSessao")]
+            public string DuracaoSessao { get; set; }
+
+            [JsonPropertyName("dataFinal")]
+            public string DataFinal { get; set; }
+        }
+    }
 }

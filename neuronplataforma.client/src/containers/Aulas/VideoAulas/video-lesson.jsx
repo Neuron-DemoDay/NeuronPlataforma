@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Bell, Home, Moon, Settings, Sun, User, BookOpen, Award } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Button } from '../../../components/Ui/Button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/Ui/Tabs";
 import { useParams, useLocation } from 'react-router-dom';
 import './video-lesson.css';
@@ -10,14 +8,17 @@ export default function VideoLesson() {
     const { id } = useParams();
     const location = useLocation();
     const titleFromCalendar = location.state?.title || 'Título não disponível';
-    const [videoData, setVideoData] = useState({ title: titleFromCalendar, url: '' });
-    const [annotations, setAnnotations] = useState([]);
-    const [activities, setActivities] = useState([]);
-    const [transcript, setTranscript] = useState('');
-    const [darkMode, setDarkMode] = useState(false);
-    const [activeTab, setActiveTab] = useState('notes');
-    const [activeAnnotation, setActiveAnnotation] = useState('ai');
 
+    // Estados para armazenar dados do vídeo e transcrição
+    const [videoData, setVideoData] = useState({ title: titleFromCalendar, url: '' });
+    const [transcription, setTranscription] = useState('');
+    const [videoIdForTranscription, setVideoIdForTranscription] = useState(null);
+    const [videoLoaded, setVideoLoaded] = useState(false);
+    const [transcriptionLoaded, setTranscriptionLoaded] = useState(false);
+    const [darkMode, setDarkMode] = useState(false);
+    const [activeTab, setActiveTab] = useState('transcript');
+
+    // Gerenciamento do modo escuro
     useEffect(() => {
         if (darkMode) {
             document.documentElement.classList.add('dark');
@@ -26,6 +27,7 @@ export default function VideoLesson() {
         }
     }, [darkMode]);
 
+    // Fetch video data
     useEffect(() => {
         async function fetchVideoData() {
             try {
@@ -56,14 +58,36 @@ export default function VideoLesson() {
         fetchVideoData();
     }, [id, titleFromCalendar]);
 
+    // Fetch transcription after video data is loaded
+    useEffect(() => {
+        if (!videoLoaded || !videoIdForTranscription) return; // Aguarda o carregamento do vídeo e ID para buscar transcrição
+
+        async function fetchTranscription() {
+            try {
+                const transcriptionResponse = await fetch(`/api/video/transcricao/${videoIdForTranscription}`);
+                if (!transcriptionResponse.ok) {
+                    console.error('Erro ao buscar a transcrição:', transcriptionResponse.statusText);
+                    return;
+                }
+
+                const transcriptionData = await transcriptionResponse.json();
+                setTranscription(
+                    transcriptionData.map(entry => `${entry.start}s: ${entry.text}`).join('\n')
+                );
+                setTranscriptionLoaded(true); // Marca a transcrição como carregada
+            } catch (error) {
+                console.error('Erro ao buscar a transcrição:', error);
+            }
+        }
+
+        fetchTranscription();
+    }, [videoLoaded, videoIdForTranscription]); // Depende do vídeo estar carregado e do ID da transcrição
+
     const toggleDarkMode = () => setDarkMode(!darkMode);
 
     return (
         <div className={`flex h-screen ${darkMode ? 'dark' : ''}`}>
-
-            {/* Main Content */}
             <div className="main-content">
-                {/* Header */}
                 <motion.header
                     initial={{ y: -50 }}
                     animate={{ y: 0 }}
@@ -71,11 +95,10 @@ export default function VideoLesson() {
                     className="header"
                 >
                     <h1 className="header-title">
-                        {videoData.title ? videoData.title : 'Carregando...'}
+                        {videoData.title || 'Carregando...'}
                     </h1>
                 </motion.header>
 
-                {/* Video Section */}
                 <main className="main-grid">
                     <div className="video-container">
                         {videoData.url ? (
@@ -99,36 +122,23 @@ export default function VideoLesson() {
                         )}
                     </div>
 
-                    {/* Annotations Section */}
                     <motion.div
                         initial={{ x: 100, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.5 }}
                         className="annotations-section"
                     >
-                        <Tabs value={activeAnnotation} onValueChange={setActiveAnnotation}>
+                        <Tabs value={activeTab} onValueChange={setActiveTab}>
                             <TabsList>
-                                <TabsTrigger value="ai">Anotações IA</TabsTrigger>
-                                <TabsTrigger value="activities">Atividades</TabsTrigger>
                                 <TabsTrigger value="transcript">Transcrição</TabsTrigger>
                             </TabsList>
 
-                            <TabsContent value="ai">
-                                {annotations.map((note, i) => (
-                                    <motion.div key={i} className="annotation-item">
-                                        <p>{note}</p>
-                                    </motion.div>
-                                ))}
-                            </TabsContent>
-
-                            <TabsContent value="activities">
-                                {activities.map((activity, i) => (
-                                    <p key={i}>{activity}</p>
-                                ))}
-                            </TabsContent>
-
                             <TabsContent value="transcript">
-                                <p>{transcript}</p>
+                                {transcriptionLoaded ? (
+                                    <pre className="transcription-text">{transcription}</pre>
+                                ) : (
+                                    <p>Carregando transcrição...</p>
+                                )}
                             </TabsContent>
                         </Tabs>
                     </motion.div>

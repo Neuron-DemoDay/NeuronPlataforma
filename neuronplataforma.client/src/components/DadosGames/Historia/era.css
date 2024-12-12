@@ -1,0 +1,27 @@
+/* src/styles/era.css */
+.era {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.era>ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.eraComponent{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.era-container>h2{
+  margin: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0056b3;
+}
+
+.era-container>p{
+  font-size: 1rem;
+}

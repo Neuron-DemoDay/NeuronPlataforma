@@ -15,7 +15,7 @@ export default function Portugues() {
                 <div className="conteudoAtual">
                     <span>Aulas acessadas recentemente</span>
                     <ul>
-                    {dadosMaterias.portugues.topics[4].subtopics.slice(2, 6).map((subtopic, index) => (
+                    {dadosMaterias.portugues.topics[2].subtopics.slice(2, 6).map((subtopic, index) => (
                              <li>
                              <AulasRecentes
                              key={index}
@@ -38,8 +38,8 @@ export default function Portugues() {
                         </li>
                         <li>
                             <JogosDesc
-                                link={'/'}
-                                name={"?"}
+                                link={'/classesGramaticais'}
+                                name={"Classes Gramaticais"}
                                 styleGame={'#FE5F55'}
                             />
                         </li>

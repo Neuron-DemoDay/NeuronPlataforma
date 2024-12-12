@@ -1,0 +1,116 @@
+.Eras {
+    width: 100%;
+    height: 70vh;
+}
+
+.App-Eras {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 110%;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.era-histórica {
+    display: flex;
+    justify-content: center;
+    font-size:  1.15rem;
+    font-weight: 300;
+    margin: 5px;
+    margin-top: 20px;
+    width: 20%;
+    border: 1px solid #0056b3;
+    border-radius: 10px;
+}
+
+.era-histórica:hover{
+    background-color: #0057b330;
+}
+
+/* Centraliza e estiliza o container das opções */
+.time-machine,
+.era-container {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-evenly;
+}
+
+.option-button {
+    color: #0056b3;
+    border: 2px solid #0056b3;
+    border-radius: 5px;
+    padding: 12px 24px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 250px;
+}
+
+.option-button:hover {
+    background-color: #0057b330;
+}
+
+.option-button:focus {
+    outline: none;
+}
+
+/* Alinha as opções de resposta no centro */
+.options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Centraliza na horizontal */
+    gap: 10px;
+}
+
+.options button {
+    width: 100%;
+    /* Garante que o botão ocupe a largura disponível */
+    max-width: 300px;
+    /* Limita o tamanho máximo do botão */
+}
+
+.explanation {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+h3 {
+    color: #007bff;
+    text-align: center;
+}
+
+/* Estilo da explicação */
+.explanation p {
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* Estilo do botão de reinício */
+button:focus {
+    outline: none;
+}

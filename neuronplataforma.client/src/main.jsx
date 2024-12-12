@@ -23,6 +23,8 @@ import QuizGeografia from './Pages/Materias/Geografia/QuizGeografia'
 import QuizHistoria from './Pages/Materias/Historia/QuizHistoria'
 import QuizIngles from './Pages/Materias/Ingles/QuizIngles'
 import QuizMatematica from './Pages/Materias/Matematica/QuizMatetica'
+import QuizPortugues from './Pages/Materias/Portugues/QuizPortugues'
+import QuizQuimica from './Pages/Materias/Quimica/QuizQuimica'
 import Filosofia from './Pages/Materias/Filosofia/Filosofia'
 import Desembaralhe from './Pages/Materias/Ingles/Desembaralhe'
 import Ingles from './Pages/Materias/Ingles/Ingles'
@@ -34,12 +36,16 @@ import Portugues from './Pages/Materias/Portugues/Portugues'
 import Quimica from './Pages/Materias/Quimica/Quimica'
 import Puzzle from './Pages/Materias/Matematica/Puzzle'
 import TabelaPeriodica from './Pages/Materias/Quimica/TabelaPeriodica'
-import Onboading from './containers/Onboarding/Onboarding'
+import Gravidade from './Pages/Materias/Fisica/Gravidade'
+import ClassesGramaticais from './Pages/Materias/Portugues/ClassesGramaticais'
+import GameEras from './Pages/Materias/Historia/GameEras'
+import Capitais from './Pages/Materias/Geografia/Capitais'
 import Aula from './containers/Aulas/VideoAulas/video-lesson'
 import LoginPage from './Pages/Login/page.jsx';
 import ForgotPasswordPage from './Pages/ForgotPassword/page.jsx'
 import RegisterPage from './Pages/register/page.jsx'
-
+import Calendar from './Pages/Cronograma/Calendar'
+import Onboarding from './containers/Onboarding/Onboarding'
 const Layout = ({ children }) => {
   const { isDarkMode } = useTheme();
   
@@ -115,7 +121,11 @@ const router = createBrowserRouter([
       {
         path: "/quizFisica",
         element: <QuizFisica />,
-      },
+        },
+        {
+            path: "/gravidade",
+            element: <Gravidade />,
+        },
       // Geografia
       {
         path: "/geografia",
@@ -125,7 +135,11 @@ const router = createBrowserRouter([
       {
         path: "/quizGeografia",
         element: <QuizGeografia />,
-      },
+        },
+        {
+            path: "/capitais",
+            element: <Capitais />,
+        },
       // História
       {
         path: "/historia",
@@ -134,7 +148,11 @@ const router = createBrowserRouter([
       {
         path: "/quizHistoria",
         element: <QuizHistoria />,
-      },
+        },
+        {
+            path: "/eras",
+            element: <GameEras />,
+        },
       // Inglês
       {
         path: "/ingles",
@@ -168,8 +186,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/quizPortugues",
-       // element: <QuizPortugues />,
-      },
+        element: <QuizPortugues />,
+        },
+        {
+            path: "/classesGramaticais",
+            element: <ClassesGramaticais />,
+        },
       // Química
       {
         path: "/quimica",
@@ -177,7 +199,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/quizQuimica",
-      //  element: <QuizQuimica />,
+        element: <QuizQuimica />,
       },
       {
         path: "/tabelaPeriodica",
@@ -200,7 +222,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/onboarding",
-        element: <Onboading />,
+        element: <Onboarding />,
         errorElement: <ErrorPage />,
     },
     {

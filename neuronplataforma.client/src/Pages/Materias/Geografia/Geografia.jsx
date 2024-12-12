@@ -15,7 +15,7 @@ export default function Geografia() {
                 <div className="conteudoAtual">
                     <span>Aulas acessadas recentemente</span>
                     <ul>
-                    {dadosMaterias.geografia.topics[4].subtopics.slice(2, 6).map((subtopic, index) => (
+                    {dadosMaterias.geografia.topics[2].subtopics.slice(2, 6).map((subtopic, index) => (
                              <li>
                              <AulasRecentes
                              key={index}
@@ -38,8 +38,8 @@ export default function Geografia() {
                         </li>
                         <li>
                             <JogosDesc
-                                link={'/'}
-                                name={"?"}
+                                link={'/capitais'}
+                                name={"Capitais"}
                                 styleGame={'#FE5F55'}
                             />
                         </li>
