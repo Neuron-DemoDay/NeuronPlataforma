@@ -3,11 +3,17 @@
   justify-content: flex-end;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   position: relative;
   z-index: 10;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header.dark {
+  background-color: #1a202c;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 .header .icon-button {
@@ -32,9 +38,17 @@
   position: relative;
 }
 
+.dark .icon-button {
+  color: #D4A7FF;
+}
+
 .icon-button:hover {
   color: #8f0bb7;
   transform: scale(1.1);
+}
+
+.dark .icon-button:hover {
+  color: #F0D9FF;
 }
 
 .user-profile {
@@ -55,18 +69,17 @@
   box-shadow: 0 0 10px rgba(180, 15, 231, 0.5);
 }
 
-/* .icon-button svg {
-  transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
-} */
-
-/* .rotate-180 {
-  transform: rotate(180deg);
-} */
-
+.dark .avatar:hover {
+  box-shadow: 0 0 10px rgba(212, 167, 255, 0.5);
+}
 
 .theme-icon {
   color: #B40FE7;
   transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.dark .theme-icon {
+  color: #D4A7FF;
 }
 
 .icon-button:active .theme-icon {

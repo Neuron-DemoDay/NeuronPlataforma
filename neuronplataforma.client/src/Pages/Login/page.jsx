@@ -18,14 +18,14 @@ export default function LoginPage() {
 
     const data = { email, password };
     try {
-      const response = await api.post('api/account/login', data);
+      const response = await api.post('api/Account/login', data);
 
       localStorage.setItem('email', email);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('expiration', response.data.expiration);
 
       // Redirecionar para a URL correta
-      navigate('https://neuron-ia.com');
+      navigate('/');
     } catch (error) {
       alert("O login falhou: " + error.message);
     }
